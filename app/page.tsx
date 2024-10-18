@@ -1,18 +1,19 @@
 import Image from "next/image";
 import Pill from "./components/Pill";
+import Section from "./components/Section";
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-6 row-start-2 items-center sm:items-start">
-        <div className="flex flex-col gap-2 max-w-sm md:max-w-md">
+        <Section>
           <div className="flex items-end justify-between">
             <div>
               <span className="font-medium">Jacob Darvin • </span>
               <span className="opacity-50">Engineering @ Mindvalley</span>
             </div>
             <Image
-              src="/images/me.jpeg"
+              src="/me.jpeg"
               alt="Jacob Darvin"
               width={40}
               height={40}
@@ -21,14 +22,19 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Pill
+              href="https://linkedin.com/in/jacob-darvin"
+              label="LinkedIn"
+              handle="jacob-darvin"
+            />
+            <Pill
               href="https://github.com/jacobdarvin"
               label="GitHub"
               handle="jacobdarvin"
             />
             <Pill
-              href="https://linkedin.com/in/jacob-darvin"
-              label="LinkedIn"
-              handle="jacob-darvin"
+              href="/resume.pdf"
+              label="CV"
+              handle="CV (2024)"
             />
             <Pill href="https://x.com/__Darvin" label="X" handle="@__Darvin" />
             <Pill
@@ -47,21 +53,59 @@ export default function Home() {
               handle="@openw_indows"
             />
           </div>
-        </div>
-        <div className="flex flex-col gap-2 max-w-sm md:max-w-md">
+        </Section>
+
+        <Section>
           <div>
             <span className="font-medium">Staykay • </span>
             <span className="opacity-50">Co-Founder</span>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Pill href="https://staykay.ph" label="Link" handle="staykay.ph" />
+            <Pill
+              href="https://staykay.ph"
+              label="Link"
+              handle="www.staykay.ph"
+            />
+            <Pill
+              href="https://www.linkedin.com/company/staykay"
+              label="LinkedIn"
+              handle="staykay"
+            />
             <Pill
               href="https://github.com/staykay-ph"
               label="GitHub"
-              handle="GitHub"
+              handle="staykay-ph"
+            />
+            <Pill
+              href="mailto:jacobisdarvin@gmail.com"
+              label="Email"
+              handle="hello@staykay.ph"
             />
           </div>
-        </div>
+        </Section>
+
+        {/* <Section>
+          <div>
+            <span className="font-medium">Other Projects</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Pill
+              href="https://riesgo.vercel.app/"
+              label="Link"
+              handle="RIESGO 2.0"
+            />
+            <Pill
+              href="https://decimal-64-converter.vercel.app/"
+              label="Link"
+              handle="Decimal 64"
+            />
+            <Pill
+              href="https://the-thought-box.vercel.app/"
+              label="Link"
+              handle="The Thought Box"
+            />
+          </div>
+        </Section> */}
       </main>
     </div>
   );

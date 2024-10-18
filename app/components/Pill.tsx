@@ -8,6 +8,7 @@ import {
   FaLink,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { IoIosDocument } from "react-icons/io";
 
 type PillProps = {
   href: string;
@@ -32,6 +33,8 @@ const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
         return <FaInstagram />;
       case "Link":
         return <FaLink />;
+      case "CV":
+        return <IoIosDocument />;
       default:
         return null;
     }
