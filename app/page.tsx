@@ -73,7 +73,7 @@ export default function Home() {
               handle="staykay-ph"
             />
             <Pill
-              href="mailto:jacobisdarvin@gmail.com"
+              href="mailto:hello@staykay.ph"
               label="Email"
               handle="hello@staykay.ph"
             />
