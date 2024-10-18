@@ -79,29 +79,6 @@ export default function Home() {
             />
           </div>
         </Section>
-
-        {/* <Section>
-          <div>
-            <span className="font-medium">Other Projects</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Pill
-              href="https://riesgo.vercel.app/"
-              label="Link"
-              handle="RIESGO 2.0"
-            />
-            <Pill
-              href="https://decimal-64-converter.vercel.app/"
-              label="Link"
-              handle="Decimal 64"
-            />
-            <Pill
-              href="https://the-thought-box.vercel.app/"
-              label="Link"
-              handle="The Thought Box"
-            />
-          </div>
-        </Section> */}
       </main>
     </div>
   );
