@@ -15,7 +15,24 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Jacob Darvin",
-  description: "Jacob Darvin",
+  description:
+    "Jacob Darvin is a Software Engineer currently working @ Mindvalley",
+  openGraph: {
+    type: "website",
+    url: "https://jacobdarvin.com",
+    title: "Jacob Darvin",
+    description:
+      "Jacob Darvin is a Software Engineer currently working @ Mindvalley",
+    siteName: "Jacob Darvin",
+    images: [
+      {
+        url: "me.png",
+        width: 886,
+        height: 886,
+        alt: "Jacob's Face",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
