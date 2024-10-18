@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "me.png",
-        width: 886,
-        height: 886,
+        width: 1200,
+        height: 627,
         alt: "Jacob's Face",
       },
     ],
