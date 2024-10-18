@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     siteName: "Jacob Darvin",
     images: [
       {
-        url: "me.png",
-        width: 1200,
-        height: 627,
+        url: "/me.png",
+        width: 886,
+        height: 886,
         alt: "Jacob's Face",
       },
     ],
