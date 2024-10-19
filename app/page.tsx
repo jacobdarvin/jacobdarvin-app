@@ -10,7 +10,7 @@ export default function Home() {
           <div className="flex items-end justify-between">
             <div>
               <span className="font-medium">Jacob Darvin • </span>
-              <span className="opacity-50">Engineering @ Mindvalley</span>
+              <span className="text-neutral-500">Engineering @ Mindvalley</span>
             </div>
             <Image
               src="/me.jpeg"
@@ -54,7 +54,7 @@ export default function Home() {
         <Section>
           <div>
             <span className="font-medium">Staykay • </span>
-            <span className="opacity-50">Co-Founder</span>
+            <span className="text-neutral-500">Co-Founder</span>
           </div>
           <div className="flex flex-wrap gap-2">
             <Pill
