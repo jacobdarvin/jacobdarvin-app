@@ -2,6 +2,13 @@ import Image from "next/image";
 import Pill from "./components/Pill";
 import Section from "./components/Section";
 
+import { Young_Serif } from "next/font/google";
+
+const youngSerif = Young_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -78,6 +85,9 @@ export default function Home() {
               handle="hello@staykay.ph"
             />
           </div>
+          <p className={`${youngSerif.className} mt-6 text-neutral-200`}>
+            And more than anything in this world, I am human.
+          </p>
         </Section>
       </main>
     </div>
