@@ -76,3 +76,28 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.sortable-ghost {
+  opacity: 0.4;
+  background: #c8ebfb;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.component-ghost {
+  opacity: 0.4;
+  background: #f3f4f6;
+  border: 2px dashed #9ca3af;
+}
+
+.component-drag {
+  opacity: 0.8;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}

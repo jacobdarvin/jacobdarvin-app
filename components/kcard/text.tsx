@@ -1,4 +1,4 @@
-interface TextProps {
+export interface TextProps {
   content: string;
 }
 

@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 
-interface SocialLinkProps {
+export interface SocialLinkProps {
   icon: IconType;
   label: string;
   username: string;

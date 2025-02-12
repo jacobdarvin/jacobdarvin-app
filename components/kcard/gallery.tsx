@@ -1,17 +1,17 @@
 import Image from "next/image";
 
-interface GalleryImage {
+export interface GalleryImage {
   src: string;
   alt: string;
   width: number;
   height: number;
 }
 
-interface LongGalleryProps {
+export interface LongGalleryProps {
   image: GalleryImage;
 }
 
-interface SquareGalleryProps {
+export interface SquareGalleryProps {
   image: GalleryImage;
 }
 
