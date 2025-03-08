@@ -38,7 +38,7 @@ export default function Home() {
               label="GitHub"
               handle="jacobdarvin"
             />
-            <Pill href="/cv.pdf" label="CV" handle="CV (2024)" />
+            <Pill href="/cv.pdf" label="CV" handle="CV (2025)" />
             <Pill href="https://x.com/__Darvin" label="X" handle="@__Darvin" />
             <Pill
               href="mailto:jacobisdarvin@gmail.com"
