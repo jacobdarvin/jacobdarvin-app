@@ -17,7 +17,7 @@ export default function Home() {
           <div className="flex items-end justify-between">
             <div>
               <span className="font-medium">Jacob Darvin • </span>
-              <span className="text-neutral-500">Engineering @ Mindvalley</span>
+              <span className="text-neutral-500">Full Stack Engineer</span>
             </div>
             <Image
               src="/me.jpeg"
@@ -85,7 +85,7 @@ export default function Home() {
               handle="hello@staykay.ph"
             />
           </div>
-          <p className={`${youngSerif.className} mt-6 text-neutral-200`}>
+          <p className={`${youngSerif.className} mt-6`}>
             And more than anything in this world, I am human.
           </p>
         </Section>
