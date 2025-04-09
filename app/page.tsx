@@ -39,7 +39,6 @@ export default function Home() {
               handle="jacobdarvin"
             />
             <Pill href="/cv.pdf" label="CV" handle="CV (2025)" />
-            <Pill href="https://x.com/__Darvin" label="X" handle="@__Darvin" />
             <Pill
               href="mailto:jacobisdarvin@gmail.com"
               label="Email"
@@ -49,11 +48,6 @@ export default function Home() {
               href="https://facebook.com/jacobdarvin"
               label="Facebook"
               handle="Jacob Darvin"
-            />
-            <Pill
-              href="https://instagram.com/openw_indows"
-              label="Instagram"
-              handle="@openw_indows"
             />
           </div>
         </Section>
@@ -83,6 +77,11 @@ export default function Home() {
               href="mailto:hello@staykay.ph"
               label="Email"
               handle="hello@staykay.ph"
+            />
+            <Pill
+              href="mailto:jacob@staykay.ph"
+              label="Email"
+              handle="jacob@staykay.ph"
             />
           </div>
           <p className={`${youngSerif.className} mt-6`}>
