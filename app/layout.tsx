@@ -15,14 +15,12 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Jacob Darvin",
-  description:
-    "Jacob Darvin is a Software Engineer currently working @ Mindvalley",
+  description: "👋 Jacob Darvin is a Full Stack Engineer",
   openGraph: {
     type: "website",
     url: "https://jacobdarvin.com",
     title: "Jacob Darvin",
-    description:
-      "Jacob Darvin is a Software Engineer currently working @ Mindvalley",
+    description: "👋 Jacob Darvin is a Full Stack Engineer",
     siteName: "Jacob Darvin",
     images: [
       {
