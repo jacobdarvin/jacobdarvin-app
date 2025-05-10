@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+// Geist for sans-serif font
+const geistSans = Geist({
+  subsets: ["latin"],
   variable: "--font-geist-sans",
-  weight: "100 900",
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+
+// Geist with monospace style for mono font
+const geistMono = Geist({
+  subsets: ["latin"],
   variable: "--font-geist-mono",
-  weight: "100 900",
+  display: "swap",
+  style: "normal",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
   title: "Jacob Darvin",
   description: "👋 Jacob Darvin is a Full Stack Engineer",
+  metadataBase: new URL("https://jacobdarvin.com"),
   openGraph: {
     type: "website",
     url: "https://jacobdarvin.com",
