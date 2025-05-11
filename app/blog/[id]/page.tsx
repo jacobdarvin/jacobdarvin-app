@@ -108,7 +108,7 @@ export default async function BlogIdPage(props: Params) {
             href="/blog"
             className="inline-block mt-4 bg-white/10 hover:bg-white/15 transition-colors py-2 px-5 rounded-full border border-neutral-800"
           >
-            More posts
+            More entries
           </Link>
         </div>
       </div>

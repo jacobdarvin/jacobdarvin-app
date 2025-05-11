@@ -54,21 +54,21 @@ export default async function BlogPage() {
             <Box className="w-10 h-10 ml-4" />
           </h1>
           <p className="text-white/70 text-lg">
-            Thoughts and notes about the things that happen in my life.
+            Thoughts and takeaways about the things that happen in my life.
           </p>
         </header>
 
         {/* Latest Post */}
         <div className="mb-16">
           <div className="text-sm uppercase tracking-wider text-white/60 mb-4 font-medium">
-            Latest Post
+            Latest Entry
           </div>
           <Post post={latestPost} isLatest={true} />
         </div>
 
         {/* Post Grid */}
         <div className="text-sm uppercase tracking-wider text-white/60 mb-4 font-medium">
-          Other Posts
+          Other Entries
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

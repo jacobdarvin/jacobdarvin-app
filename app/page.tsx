@@ -154,8 +154,9 @@ export default function Home() {
             </h2>
             <p className="text-white/70 mb-6">
               I write about my thoughts, experiences, and things I&apos;ve
-              learned along the way. My blog is a collection of personal
-              stories, tech-stuff (maybe) and other things that occur to me throughout my life.
+              learned along the way. This is a collection of personal stories,
+              tech-stuff (maybe) and other things that occur to me throughout my
+              life.
             </p>
             <Link
               href="/blog"
