@@ -2,6 +2,7 @@ import { Young_Serif } from "next/font/google";
 import { Post as PostType } from "../../types/post";
 import Link from "next/link";
 import Image from "next/image";
+import { calculateReadTime, formatTimestamp } from "@/lib/utils";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
@@ -12,23 +13,6 @@ interface PostProps {
   post: PostType;
   isLatest?: boolean;
 }
-
-const calculateReadTime = (content: string): string => {
-  const words = content.trim().split(/\s+/).length;
-  const minutes = Math.max(1, Math.ceil(words / 200));
-  return `${minutes} min read`;
-};
-
-const formatTimestamp = (timestamp: {
-  _seconds: number;
-  _nanoseconds: number;
-}): string => {
-  return new Date(timestamp._seconds * 1000).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-};
 
 export default function Post({ post, isLatest = false }: PostProps) {
   const date = formatTimestamp(post.created_at);

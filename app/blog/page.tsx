@@ -26,7 +26,6 @@ async function getPosts() {
     return await res.json();
   } catch (error) {
     console.error(error);
-    return [];
   }
 }
 
