@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 interface ChevronProps {
   targetId: string;
@@ -21,7 +21,7 @@ export default function Chevron({ targetId }: ChevronProps) {
       aria-label="Scroll down"
     >
       <span className="p-2 rounded-full bg-black">
-        <Box className="h-5 w-5 text-white " />
+        <ChevronDown className="h-5 w-5 text-white" />
       </span>
     </button>
   );

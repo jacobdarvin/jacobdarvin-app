@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)] relative overflow-hidden">
+      <div className="flex items-center justify-center min-h-screen p-8 pb-20 relative overflow-hidden">
         {/* Grid background */}
         <div
           className="absolute inset-0 bg-[linear-gradient(to_right,#8881_0.7px,transparent_0.7px),linear-gradient(to_bottom,#8881_0.7px,transparent_0.7px)] bg-[size:50px_50px] z-0 pointer-events-none"
