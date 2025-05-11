@@ -1,51 +1,39 @@
-"use client";
-
 import React from "react";
 import Post from "../components/Post";
 import Link from "next/link";
 import { Box, ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
-import { Post as PostType } from "../../types/post";
+import { Post as PostType } from "@/types/post";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
   weight: ["400"],
 });
 
-export default function BlogPage() {
-  const posts: PostType[] = [
-    {
-      title: "Lorem Ipsum Dolor Sit Amet",
-      date: "April 18, 2025",
-      author: "Lorem Ipsum",
-      readTime: "8 min read",
-      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+async function getPosts() {
+  try {
+    const res = await fetch(
+      `https://jacobdarvin-nest.vercel.app/firebase/posts`,
+      {
+        next: { revalidate: 3600 },
+      }
+    );
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      slug: "lorem-ipsum-dolor-sit-amet",
-    },
-    {
-      title: "Consectetur Adipiscing Elit",
-      date: "April 10, 2025",
-      author: "Lorem Ipsum",
-      readTime: "6 min read",
-      content:
-        "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      slug: "consectetur-adipiscing-elit",
-    },
-    {
-      title: "Sed Do Eiusmod Tempor",
-      date: "March 28, 2025",
-      author: "Lorem Ipsum",
-      readTime: "5 min read",
-      content:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      slug: "sed-do-eiusmod-tempor",
-    },
-  ];
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data: ${res.statusText}`);
+    }
 
-  // Get featured post (most recent)
-  const featuredPost = posts[0];
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const posts: PostType[] = await getPosts();
+
+  const latestPost = posts[0];
   const regularPosts = posts.slice(1);
 
   return (
@@ -77,7 +65,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
             Latest Post
           </div>
           <div className="bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800">
-            <Post post={featuredPost} variant="featured" />
+            <Post post={latestPost} variant="featured" />
           </div>
         </div>
 
