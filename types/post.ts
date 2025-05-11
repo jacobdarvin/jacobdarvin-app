@@ -6,4 +6,5 @@ export type Post = {
     _nanoseconds: number;
   };
   content: string;
+  image: string;
 };

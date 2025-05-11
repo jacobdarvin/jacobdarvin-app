@@ -55,7 +55,7 @@ export default async function BlogPage() {
             <Box className="w-10 h-10 ml-4" />
           </h1>
           <p className="text-white/70 text-lg">
-            Thoughts, ideas and general stuff.
+            Thoughts and notes about the things that happen in my life.
           </p>
         </header>
 
@@ -64,9 +64,7 @@ export default async function BlogPage() {
           <div className="text-sm uppercase tracking-wider text-white/60 mb-4 font-medium">
             Latest Post
           </div>
-          <div className="bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800">
-            <Post post={latestPost} variant="featured" />
-          </div>
+          <Post post={latestPost} isLatest={true} />
         </div>
 
         {/* Post Grid */}
@@ -77,12 +75,10 @@ export default async function BlogPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {regularPosts.length > 0 ? (
             regularPosts.map((post) => (
-              <div
+              <Post
                 key={post.id || `post-${post.created_at._seconds}`}
-                className="bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
-              >
-                <Post post={post} variant="regular" />
-              </div>
+                post={post}
+              />
             ))
           ) : (
             <span>Nothing yet.</span>
