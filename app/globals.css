@@ -25,3 +25,12 @@ body {
     text-wrap: balance;
   }
 }
+::selection {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
