@@ -145,7 +145,7 @@ export default function Home() {
         id="black-section"
         className="min-h-screen bg-black text-white flex items-center justify-center relative transition-colors duration-500 py-16"
       >
-        <div className="flex flex-col max-w-2xl w-full">
+        <div className="flex flex-col max-w-3xl w-full px-6 md:px-0">
           <Post
             post={{
               title: "My First Post!",
@@ -162,11 +162,16 @@ Vivamus luctus egestas leo. Duis ac turpis. Integer rutrum ante eu lacus. Vestib
 Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue. Nam elit magna, hendrerit sit amet, tincidunt ac, viverra sed, nulla.`,
               slug: "my-first-post",
             }}
+            variant="featured"
           />
-          <div className="mt-4 self-start flex items-center">
-            <Link href="/blog" className="flex items-center">
-              See Blog
-              <ChevronRight className="ml-1" />
+
+          <div className="mt-8 self-start">
+            <Link
+              href="/blog"
+              className="flex items-center bg-white/10 px-5 py-2.5 rounded-full hover:bg-white/20 transition-colors group"
+            >
+              <span className="mr-2">See All Posts</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </div>
