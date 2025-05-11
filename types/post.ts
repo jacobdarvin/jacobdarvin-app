@@ -1,8 +1,9 @@
 export type Post = {
+  id: string;
   title: string;
-  date: string;
-  author: string;
-  readTime: string;
+  created_at: {
+    _seconds: number;
+    _nanoseconds: number;
+  };
   content: string;
-  slug?: string;
 };

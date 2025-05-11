@@ -75,14 +75,18 @@ export default async function BlogPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {regularPosts.map((post) => (
-            <div
-              key={post.slug}
-              className="bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
-            >
-              <Post post={post} variant="regular" />
-            </div>
-          ))}
+          {regularPosts.length > 0 ? (
+            regularPosts.map((post) => (
+              <div
+                key={post.id || `post-${post.created_at._seconds}`}
+                className="bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
+              >
+                <Post post={post} variant="regular" />
+              </div>
+            ))
+          ) : (
+            <span>Nothing yet.</span>
+          )}
         </div>
       </div>
     </div>

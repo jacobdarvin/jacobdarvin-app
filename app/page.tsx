@@ -5,12 +5,11 @@ import { useState, useEffect } from "react";
 import Pill from "./components/Pill";
 import Section from "./components/Section";
 import Chevron from "./components/Chevron";
-import Post from "./components/Post";
 
 import { Young_Serif } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { Box, ChevronRight } from "lucide-react";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
@@ -146,31 +145,24 @@ export default function Home() {
         className="min-h-screen bg-black text-white flex items-center justify-center relative transition-colors duration-500 py-16"
       >
         <div className="flex flex-col max-w-3xl w-full px-6 md:px-0">
-          <Post
-            post={{
-              title: "My First Post!",
-              date: "May 10, 2025",
-              author: "Jacob Darvin",
-              readTime: "5 min read",
-              content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.
-
-Vivamus luctus egestas leo. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi.
-
-Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue. Nam elit magna, hendrerit sit amet, tincidunt ac, viverra sed, nulla.`,
-              slug: "my-first-post",
-            }}
-            variant="featured"
-          />
-
-          <div className="mt-8 self-start">
+          <div className="mb-8">
+            <h2
+              className={`${youngSerif.className} text-4xl md:text-5xl mb-3 flex items-center`}
+            >
+              Jacob&apos;s Life Box
+              <Box className="w-10 h-10 ml-4" />
+            </h2>
+            <p className="text-white/70 mb-6">
+              I write about my thoughts, experiences, and things I&apos;ve
+              learned along the way. My blog is a collection of personal
+              stories, technical insights, and random musings that reflect my
+              journey through life and technology.
+            </p>
             <Link
               href="/blog"
-              className="flex items-center bg-white/10 pl-5 pr-3 py-2.5 rounded-full hover:bg-white/15 transition-colors group border border-neutral-800"
+              className="flex items-center bg-white/10 pl-5 pr-3 py-2.5 rounded-full hover:bg-white/15 transition-colors group border border-neutral-800 w-fit"
             >
-              <span className="mr-2">See my blog</span>
+              <span className="mr-2">Read my blog</span>
               <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
