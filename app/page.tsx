@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import Pill from "./components/Pill";
 import Section from "./components/Section";
 import Chevron from "./components/Chevron";
+import Grid from "./components/Grid";
 
 import { Young_Serif } from "next/font/google";
 import Image from "next/image";
@@ -17,29 +18,6 @@ const youngSerif = Young_Serif({
 });
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX / window.innerWidth - 0.5,
-        y: e.clientY / window.innerHeight - 0.5,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  const gridStyle = {
-    transform: `translate(${mousePosition.x * 20}px, ${
-      mousePosition.y * 20
-    }px)`,
-    transition: "transform 0.3s ease-out",
-  };
-
   useEffect(() => {
     // Apply scroll-smooth to html element for better scrolling
     document.documentElement.classList.add("scroll-smooth");
@@ -49,13 +27,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       <div className="flex items-center justify-center min-h-screen p-8 pb-20 relative overflow-hidden">
         {/* Grid background */}
-        <div
-          className="absolute inset-0 bg-[linear-gradient(to_right,#8881_0.7px,transparent_0.7px),linear-gradient(to_bottom,#8881_0.7px,transparent_0.7px)] bg-[size:50px_50px] z-0 pointer-events-none"
-          style={gridStyle}
-        />
+        <Grid />
 
         <main className="flex flex-col gap-6 items-center sm:items-start z-10 w-full max-w-md">
           <Section>
@@ -168,6 +143,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

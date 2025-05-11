@@ -22,7 +22,7 @@ export default function Post({ post, isLatest = false }: PostProps) {
     <Link href={`/blog/${post.id}`}>
       <div
         className={
-          "bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
+          "backdrop-blur-sm bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
         }
       >
         <article className="flex flex-col md:flex-row gap-4">

@@ -18,7 +18,10 @@ type Params = {
 async function getPost(id: string) {
   try {
     const res = await fetch(
-      `https://jacobdarvin-nest.vercel.app/firebase/posts/${id}`
+      `https://jacobdarvin-nest.vercel.app/firebase/posts/${id}`,
+      {
+        next: { revalidate: 3600 },
+      }
     );
 
     if (!res.ok) {
