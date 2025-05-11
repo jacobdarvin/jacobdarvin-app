@@ -168,9 +168,9 @@ Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrice
           <div className="mt-8 self-start">
             <Link
               href="/blog"
-              className="flex items-center bg-white/10 px-5 py-2.5 rounded-full hover:bg-white/20 transition-colors group"
+              className="flex items-center bg-white/10 pl-5 pr-3 py-2.5 rounded-full hover:bg-white/15 transition-colors group border border-neutral-800"
             >
-              <span className="mr-2">See All Posts</span>
+              <span className="mr-2">See my blog</span>
               <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
