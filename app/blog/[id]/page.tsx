@@ -102,7 +102,7 @@ export default async function BlogIdPage(props: Params) {
             <Box className="w-5 h-5" />
           </div>
           <p className="text-white/70 mt-2">
-            Thanks for reading! Check out more posts in my blog.
+            Thank you for reading! Check out more stuff from my blog.
           </p>
           <Link
             href="/blog"
