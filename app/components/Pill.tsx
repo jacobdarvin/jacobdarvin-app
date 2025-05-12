@@ -1,4 +1,5 @@
 import React from "react";
+import { BsBoxFill } from "react-icons/bs";
 import {
   FaGithub,
   FaLinkedin,
@@ -35,6 +36,8 @@ const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
         return <FaLink />;
       case "CV":
         return <IoIosDocument />;
+      case "Blog":
+        return <BsBoxFill />;
       default:
         return null;
     }
