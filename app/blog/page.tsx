@@ -17,7 +17,6 @@ async function getPosts() {
   try {
     const res = await fetch(`${API_BASE_URL}/api/blog`, {
       method: "GET",
-      cache: "no-store",
     });
 
     if (!res.ok) {
