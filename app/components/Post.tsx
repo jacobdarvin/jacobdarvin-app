@@ -22,10 +22,10 @@ export default function Post({ post, isLatest = false }: PostProps) {
     <Link href={`/blog/${post.id}`}>
       <div
         className={
-          "backdrop-blur-sm bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800"
+          "backdrop-blur-sm bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800 h-full"
         }
       >
-        <article className="flex flex-col md:flex-row gap-4">
+        <article className="flex flex-col md:flex-row gap-4 h-full">
           <div className="flex-1">
             <time className="text-sm text-gray-400 block mb-1">{date}</time>
             <h3
@@ -42,17 +42,19 @@ export default function Post({ post, isLatest = false }: PostProps) {
               {post.content.split("\n\n")[0]}
             </p>
           </div>
-          <div className="md:w-1/3 flex-shrink-0">
+          <div className="md:w-1/3 flex-shrink-0 h-[200px]">
             {post.image ? (
-              <Image
-                src={post.image}
-                alt={post.title}
-                className="w-full h-full aspect-square object-cover rounded-lg"
-                width={800}
-                height={800}
-              />
+              <div className="relative h-full w-full">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  className="rounded-lg object-cover object-top"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
             ) : (
-              <div className="w-full h-full aspect-square bg-white/10 rounded-lg flex items-center justify-center">
+              <div className="w-full h-full bg-white/10 rounded-lg flex items-center justify-center">
                 <span className="text-white/40">No image</span>
               </div>
             )}
