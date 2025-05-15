@@ -11,14 +11,14 @@ const youngSerif = Young_Serif({
   weight: ["400"],
 });
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 async function getPosts() {
   try {
-    const res = await fetch(
-      `https://jacobdarvin-nest.vercel.app/firebase/posts`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
+    const res = await fetch(`${API_BASE_URL}/api/blog`, {
+      method: "GET",
+      next: { revalidate: 3600 },
+    });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
