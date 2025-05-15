@@ -15,14 +15,14 @@ type Params = {
   params: Promise<{ id: string }>;
 };
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 async function getPost(id: string) {
   try {
-    const res = await fetch(
-      `https://jacobdarvin-nest.vercel.app/firebase/posts/${id}`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
+    const res = await fetch(`${API_BASE_URL}/api/blog/${id}`, {
+      method: "GET",
+      cache: "force-cache",
+    });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
