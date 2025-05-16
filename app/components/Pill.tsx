@@ -15,10 +15,9 @@ type PillProps = {
   href: string;
   label: string;
   handle: string;
-  invert?: boolean;
 };
 
-const Pill: React.FC<PillProps> = ({ href, label, handle, invert = false }) => {
+const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
   const getLogo = (label: string) => {
     switch (label) {
       case "GitHub":
@@ -47,9 +46,8 @@ const Pill: React.FC<PillProps> = ({ href, label, handle, invert = false }) => {
   return (
     <a
       href={href}
-      className={`flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-neutral-100/70 dark:hover:bg-neutral-900/70 backdrop-blur-sm ${
-        invert && "invert"
-      } transition text-sm font-medium`}
+      className="flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-neutral-100/70 dark:hover:bg-neutral-900/70 backdrop-blur-sm
+       transition text-sm font-medium"
       target="_blank"
       rel="noopener noreferrer"
     >

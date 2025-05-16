@@ -66,7 +66,7 @@ export default function Home() {
                 label="Facebook"
                 handle="Jacob Darvin"
               />
-              <Pill invert={true} href="/blog" label="Blog" handle="Jacob's Life Box" />
+              <Pill href="/blog" label="Blog" handle="Jacob's Life Box" />
             </div>
           </Section>
 
