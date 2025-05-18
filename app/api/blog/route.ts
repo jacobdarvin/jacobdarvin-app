@@ -25,10 +25,13 @@ export async function POST(request: NextRequest) {
     try {
         const { title, content } = await request.json()
 
+        const authToken = request.cookies.get('auth-token')?.value
+
         const response = await fetch(`${API_URL}/blog/posts`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': authToken ? `Bearer ${authToken}` : ''
             },
             body: JSON.stringify({ title, content })
         })
