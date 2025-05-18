@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, Box } from "lucide-react";
 import { Young_Serif } from "next/font/google";
-import { calculateReadTime, formatTimestamp } from "@/lib/utils";
+import { calculateReadTime, formatTimestamp } from "@/utils/time";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],

@@ -2,7 +2,7 @@ import { Young_Serif } from "next/font/google";
 import { Post as PostType } from "../../types/post";
 import Link from "next/link";
 import Image from "next/image";
-import { calculateReadTime, formatTimestamp } from "@/lib/utils";
+import { calculateReadTime, formatTimestamp } from "@/utils/time";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
