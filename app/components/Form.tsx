@@ -8,24 +8,29 @@ import { useRouter } from "next/navigation";
 
 export default function Form() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-  });
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    try {
+      const response = await fetch("/api/blog", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, content }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleLogout = async () => {
@@ -59,8 +64,8 @@ export default function Form() {
               id="title"
               name="title"
               placeholder="Enter post title"
-              value={formData.title}
-              onChange={handleChange}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
@@ -73,8 +78,8 @@ export default function Form() {
               id="content"
               name="content"
               placeholder="Write your post content here..."
-              value={formData.content}
-              onChange={handleChange}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               rows={6}
               required
             />
