@@ -24,9 +24,7 @@ export default function Grid({ className }: GridProps) {
   }, []);
 
   const gridStyle = {
-    transform: `translate(${mousePosition.x * 20}px, ${
-      mousePosition.y * 20
-    }px)`,
+    transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
     transition: "transform 0.3s ease-out",
   };
 
