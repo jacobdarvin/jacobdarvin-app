@@ -18,7 +18,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,9 @@ export default function Login() {
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
         {error && (
-          <div className="p-3 text-red-500 bg-red-50 rounded">{error}</div>
+          <div className="p-3 text-xs text-red-500 bg-red-50 rounded">
+            {error}
+          </div>
         )}
 
         <div className="space-y-2">
