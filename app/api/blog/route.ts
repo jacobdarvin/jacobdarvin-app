@@ -23,9 +23,33 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     try {
-        const { title, content } = await request.json()
+        const formData = await request.formData();
+        const title = formData.get('title') as string;
+        const content = formData.get('content') as string;
+        const image = formData.get('image') as File;
 
-        const authToken = request.cookies.get('auth-token')?.value
+        const authToken = request.cookies.get('auth-token')?.value;
+        let imageUrl = null;
+
+        if (image) {
+            const imageFormData = new FormData();
+            imageFormData.append('image', image);
+
+            const imageResponse = await fetch(`${API_URL}/blog/upload`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': authToken ? `Bearer ${authToken}` : ''
+                },
+                body: imageFormData
+            });
+
+            if (!imageResponse.ok) {
+                throw new Error(`Failed to upload image: ${imageResponse.status}`);
+            }
+
+            const imageData = await imageResponse.json();
+            imageUrl = imageData.url;
+        }
 
         const response = await fetch(`${API_URL}/blog/posts`, {
             method: 'POST',
@@ -33,22 +57,21 @@ export async function POST(request: NextRequest) {
                 'Content-Type': 'application/json',
                 'Authorization': authToken ? `Bearer ${authToken}` : ''
             },
-            body: JSON.stringify({ title, content })
-        })
+            body: JSON.stringify({ title, content, image: imageUrl })
+        });
 
         if (!response.ok) {
-            throw new Error(`Failed to post blog: ${response.status}`)
+            throw new Error(`Failed to post blog: ${response.status}`);
         }
 
-        const data = await response.json()
-
-        return NextResponse.json(data)
+        const data = await response.json();
+        return NextResponse.json(data);
 
     } catch (error) {
-        console.error("Error posting blog:", error)
+        console.error("Error posting blog:", error);
         return NextResponse.json(
             { error: "Failed to post blog" },
             { status: 500 }
-        )
+        );
     }
 }

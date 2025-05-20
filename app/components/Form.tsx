@@ -5,22 +5,33 @@ import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
 import { Button } from "../../components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Form() {
   const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      if (image) {
+        formData.append("image", image);
+      }
+
       const response = await fetch("/api/blog", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content }),
+        body: formData,
       });
 
       const data = await response.json();
@@ -32,10 +43,14 @@ export default function Form() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     try {
       const response = await fetch("/api/logout", {
         method: "POST",
@@ -52,12 +67,46 @@ export default function Form() {
     }
   };
 
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <div className="w-full max-w-2xl p-8 space-y-4 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold tracking-tight">Create a New Post</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label htmlFor="image" className="text-sm font-medium">
+              Image
+            </label>
+            <Input
+              className="cursor-pointer"
+              name="image"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg, image/gif"
+              onChange={handleImageChange}
+            />
+            {imagePreview && (
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                width={1000}
+                height={1000}
+                className="rounded-lg shadow-sm w-full object-cover"
+              />
+            )}
+          </div>
+
           <div className="space-y-2">
             <label htmlFor="title" className="text-sm font-medium">
               Title
@@ -87,8 +136,8 @@ export default function Form() {
             />
           </div>
 
-          <Button type="submit" className="w-full">
-            Create Post
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {!isLoading ? "Create Post" : "Submitting..."}
           </Button>
           <Button variant={"outline"} onClick={handleLogout} className="w-full">
             Log Out
