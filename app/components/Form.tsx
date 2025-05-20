@@ -27,6 +27,8 @@ export default function Form() {
 
       if (!response.ok) {
         throw new Error(data);
+      } else {
+        router.push(`/blog/${data.id}`);
       }
     } catch (error) {
       console.error(error);
