@@ -33,7 +33,9 @@ async function getPosts() {
 export default async function BlogPage() {
   const posts: PostType[] = await getPosts();
 
-  const latestPost = posts[0];
+  const latestPost = posts.sort(
+    (a, b) => b.created_at._seconds - a.created_at._seconds
+  )[0];
   const regularPosts = posts.slice(1);
 
   return (

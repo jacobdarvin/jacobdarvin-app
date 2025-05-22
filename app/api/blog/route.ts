@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
         if (image) {
             const imageFormData = new FormData();
-            imageFormData.append('image', image);
+            imageFormData.append('file', image);
 
             const imageResponse = await fetch(`${API_URL}/blog/upload`, {
                 method: 'POST',
@@ -44,7 +44,14 @@ export async function POST(request: NextRequest) {
             });
 
             if (!imageResponse.ok) {
-                throw new Error(`Failed to upload image: ${imageResponse.status}`);
+                const errorText = await imageResponse.text();
+                console.error('Image upload failed:', {
+                    status: imageResponse.status,
+                    statusText: imageResponse.statusText,
+                    error: errorText,
+                    headers: Object.fromEntries(imageResponse.headers.entries())
+                });
+                throw new Error(`Failed to upload image: ${imageResponse.status} - ${errorText}`);
             }
 
             const imageData = await imageResponse.json();
