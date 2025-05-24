@@ -30,7 +30,7 @@ export default function Grid({ className }: GridProps) {
 
   return (
     <div
-      className={`fixed inset-0 overflow-hidden bg-[linear-gradient(to_right,#8881_0.7px,transparent_0.7px),linear-gradient(to_bottom,#8881_0.7px,transparent_0.7px)] bg-[size:50px_50px] z-0 pointer-events-none ${
+      className={`fixed inset-0 overflow-hidden bg-[linear-gradient(to_right,#8881_1px,transparent_1px),linear-gradient(to_bottom,#8881_1px,transparent_1px)] bg-[size:50px_50px] z-0 pointer-events-none ${
         className || ""
       }`}
       style={gridStyle}
