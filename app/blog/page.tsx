@@ -17,7 +17,9 @@ async function getPosts() {
   try {
     const res = await fetch(`${API_BASE_URL}/api/blog`, {
       method: "GET",
-      cache: "force-cache",
+      next: {
+        revalidate: 3600,
+      },
     });
 
     if (!res.ok) {
