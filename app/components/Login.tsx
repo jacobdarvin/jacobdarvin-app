@@ -11,11 +11,14 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/auth", {
@@ -36,6 +39,8 @@ export default function Login() {
       router.push("/post");
     } catch {
       setError("An error occurred. Please try again");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,6 +71,7 @@ export default function Login() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="my@email.com"
               required
             />
           </div>
@@ -81,12 +87,13 @@ export default function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="my-password"
               required
             />
           </div>
 
-          <Button type="submit" className="w-full">
-            Sign in
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {!isLoading ? `Sign in` : `Signing in...`}
           </Button>
         </form>
       </div>

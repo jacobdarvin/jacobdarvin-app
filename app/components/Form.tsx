@@ -6,6 +6,7 @@ import { Textarea } from "../../components/ui/textarea";
 import { Button } from "../../components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Upload } from "lucide-react";
 
 export default function Form() {
   const router = useRouter();
@@ -89,22 +90,43 @@ export default function Form() {
             <label htmlFor="image" className="text-sm font-medium">
               Image
             </label>
-            <Input
-              className="cursor-pointer"
-              name="image"
-              type="file"
-              accept="image/png, image/jpeg, image/jpg, image/gif"
-              onChange={handleImageChange}
-            />
-            {imagePreview && (
-              <Image
-                src={imagePreview}
-                alt="Preview"
-                width={1000}
-                height={1000}
-                className="rounded-lg shadow-sm w-full object-cover"
+            <div
+              className="relative border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-gray-400 transition-colors cursor-pointer"
+              onClick={() => document.getElementById("image-upload")?.click()}
+            >
+              <input
+                id="image-upload"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg, image/gif"
+                onChange={handleImageChange}
+                className="hidden"
               />
-            )}
+              {imagePreview ? (
+                <div className="relative w-full aspect-video">
+                  <Image
+                    src={imagePreview}
+                    alt="Preview"
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
+                    <p className="text-white font-medium">
+                      Click to change image
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center text-gray-500">
+                  <Upload className="w-8 h-8 mb-2" />
+                  <p className="text-sm font-medium">
+                    Click to upload an image
+                  </p>
+                  <p className="text-xs mt-1">
+                    PNG, JPG, JPEG or GIF (max. 10MB)
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
