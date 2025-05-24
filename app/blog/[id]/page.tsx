@@ -2,7 +2,7 @@ import { Post as PostType } from "@/types/post";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, Box } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
 import { calculateReadTime, formatTimestamp } from "@/utils/time";
 
@@ -100,12 +100,9 @@ export default async function BlogIdPage(props: Params) {
         </article>
 
         <div className="mt-12 pt-8 border-t border-neutral-800">
-          <div className="flex items-center">
-            <div className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
-              Jacob&apos;s Life Box
-            </div>
-            <Box className="w-5 h-5" />
-          </div>
+          <h1 className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
+            Jacob&apos;s Life Box
+          </h1>
           <p className="text-white/70 mt-2">
             Thank you for reading! Check out more stuff from my blog.
           </p>

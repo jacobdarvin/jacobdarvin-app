@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "../components/Post";
 import Link from "next/link";
-import { Box, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
 import { Post as PostType } from "@/types/post";
 import Grid from "../components/Grid";
@@ -53,11 +53,8 @@ export default async function BlogPage() {
         </Link>
 
         <header className="mb-12">
-          <h1
-            className={`${youngSerif.className} text-4xl md:text-5xl mb-3 flex items-center`}
-          >
+          <h1 className={`${youngSerif.className} text-4xl md:text-5xl mb-3 `}>
             Jacob&apos;s Life Box
-            <Box className="w-10 h-10 ml-4" />
           </h1>
           <p className="text-white/70 text-lg">
             Thoughts and takeaways about the things that happen in my life.
