@@ -81,8 +81,8 @@ export default function Form() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-2xl p-8 space-y-4 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 py-8 md:py-16">
+      <div className="w-full max-w-2xl p-8 space-y-4 bg-white rounded-lg shadow-md ">
         <h1 className="text-2xl font-bold tracking-tight">Create a New Post</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
