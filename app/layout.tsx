@@ -10,13 +10,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Jacob Darvin",
-  description: "👋 Jacob Darvin is a Full Stack Engineer",
+  description: "👋 Jacob Darvin is a Full Stack Engineer @ Harmoney",
   metadataBase: new URL("https://jacobdarvin.com"),
   openGraph: {
     type: "website",
     url: "https://jacobdarvin.com",
     title: "Jacob Darvin",
-    description: "👋 Jacob Darvin is a Full Stack Engineer",
+    description: "👋 Jacob Darvin is a Full Stack Engineer @ Harmoney",
     siteName: "Jacob Darvin",
     images: [
       {

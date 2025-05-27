@@ -34,7 +34,9 @@ export default function Home() {
             <div className="flex items-end justify-between">
               <div>
                 <span className="font-medium">Jacob Darvin • </span>
-                <span className="text-neutral-500">Full Stack Engineer</span>
+                <span className="text-neutral-500">
+                  Full Stack Engineer @ Harmoney
+                </span>
               </div>
               <Image
                 src="/me.jpeg"
