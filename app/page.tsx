@@ -12,15 +12,13 @@ const youngSerif = Young_Serif({
 export default function Home() {
   return (
     <>
-      <div className="bg-gray-50 flex items-center justify-center min-h-screen p-8 pb-20 relative overflow-hidden">
+      <div className="flex items-center justify-center min-h-screen p-8 pb-20 relative overflow-hidden">
         <main className="flex flex-col gap-6 items-center sm:items-start z-10 w-full max-w-md">
           <Section>
             <div className="flex items-end justify-between">
               <div>
                 <span className="font-medium">Jacob Darvin • </span>
-                <span className="text-neutral-500">
-                  Full Stack Engineer @ Harmoney
-                </span>
+                <span className="text-neutral-500">Full Stack Engineer</span>
               </div>
               <Image
                 src="/me.jpeg"

@@ -46,7 +46,7 @@ const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
   return (
     <a
       href={href}
-      className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium bg-white hover:bg-gray-50"
+      className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium hover:bg-gray-50"
       target="_blank"
       rel="noopener noreferrer"
     >
