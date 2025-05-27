@@ -1,10 +1,5 @@
-"use client";
-
-import { useEffect } from "react";
-
 import Pill from "./components/Pill";
 import Section from "./components/Section";
-import Grid from "./components/Grid";
 
 import { Young_Serif } from "next/font/google";
 import Image from "next/image";
@@ -15,20 +10,9 @@ const youngSerif = Young_Serif({
 });
 
 export default function Home() {
-  useEffect(() => {
-    // Apply scroll-smooth to html element for better scrolling
-    document.documentElement.classList.add("scroll-smooth");
-    return () => {
-      document.documentElement.classList.remove("scroll-smooth");
-    };
-  }, []);
-
   return (
     <>
       <div className="flex items-center justify-center min-h-screen p-8 pb-20 relative overflow-hidden">
-        {/* Grid background */}
-        <Grid />
-
         <main className="flex flex-col gap-6 items-center sm:items-start z-10 w-full max-w-md">
           <Section>
             <div className="flex items-end justify-between">

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
 import { Post as PostType } from "@/types/post";
-import Grid from "../components/Grid";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
@@ -42,7 +41,6 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-black text-white py-8 md:py-16">
-      <Grid />
       <div className="container mx-auto px-4 max-w-5xl">
         <Link
           href="/"
