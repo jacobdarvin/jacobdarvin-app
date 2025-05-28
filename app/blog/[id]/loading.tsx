@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function BlogIdLoading() {
   return (
-    <div className="min-h-screen bg-black text-white py-8 md:py-16">
+    <>
       <div className="container mx-auto px-4 max-w-4xl">
         <Link
           href="/blog"
@@ -18,14 +18,14 @@ export default function BlogIdLoading() {
           <header className="mb-8">
             {/* Title placeholder */}
             <div className="h-12 md:h-16 bg-white/10 rounded-lg animate-pulse mb-4 max-w-2xl"></div>
-            
+
             {/* Date and read time placeholder */}
             <div className="flex items-center gap-2 mb-6">
               <div className="h-4 w-32 bg-white/10 rounded-full animate-pulse"></div>
               <div className="h-4 w-4 bg-white/10 rounded-full animate-pulse"></div>
               <div className="h-4 w-24 bg-white/10 rounded-full animate-pulse"></div>
             </div>
-            
+
             {/* Feature image placeholder */}
             <div className="w-full h-64 md:h-96 bg-white/10 rounded-xl animate-pulse mb-8"></div>
           </header>
@@ -43,7 +43,7 @@ export default function BlogIdLoading() {
             <div className="h-4 bg-white/10 rounded-full animate-pulse w-full"></div>
             <div className="h-4 bg-white/10 rounded-full animate-pulse w-3/4"></div>
           </div>
-          
+
           {/* Footer placeholder */}
           <div className="mt-12 pt-8 border-t border-neutral-800">
             <div className="h-6 w-48 bg-white/10 rounded-full animate-pulse mb-3"></div>
@@ -52,6 +52,6 @@ export default function BlogIdLoading() {
           </div>
         </article>
       </div>
-    </div>
-  )
+    </>
+  );
 }

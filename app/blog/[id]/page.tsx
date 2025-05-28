@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
 import { calculateReadTime, formatTimestamp } from "@/utils/time";
+import { parseAndHighlightContent } from "@/utils/code";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
@@ -51,11 +52,16 @@ export default async function BlogIdPage(props: Params) {
   const date = formatTimestamp(post.created_at);
   const readTime = calculateReadTime(post.content);
 
+  // Process content to highlight code blocks
+  const processedContent = await parseAndHighlightContent(post.content);
+
   // Split content into paragraphs for better rendering
-  const paragraphs = post.content.split("\n\n").filter((p) => p.trim() !== "");
+  const paragraphs = processedContent
+    .split("\n\n")
+    .filter((p) => p.trim() !== "");
 
   return (
-    <div className="min-h-screen bg-black text-white py-8 md:py-16">
+    <>
       <div className="container mx-auto px-4 max-w-4xl">
         <Link
           href="/blog"
@@ -91,11 +97,28 @@ export default async function BlogIdPage(props: Params) {
           </header>
 
           <div className="prose prose-lg prose-invert max-w-none">
-            {paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-white/90 mb-6 leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
+            {paragraphs.map((paragraph, index) => {
+              // Check if paragraph contains highlighted code (starts with <pre) or inline code
+              if (
+                paragraph.trim().startsWith("<pre") ||
+                paragraph.includes('<code class="inline-code"')
+              ) {
+                return (
+                  <div
+                    key={index}
+                    className="mb-6"
+                    dangerouslySetInnerHTML={{ __html: paragraph }}
+                  />
+                );
+              }
+
+              // Regular paragraph
+              return (
+                <p key={index} className="text-white/90 mb-6 leading-relaxed">
+                  {paragraph}
+                </p>
+              );
+            })}
           </div>
         </article>
 
@@ -114,6 +137,6 @@ export default async function BlogIdPage(props: Params) {
           </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }
