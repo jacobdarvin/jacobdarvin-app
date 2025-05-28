@@ -81,3 +81,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+.blog-code {
+  font-family: "Fira Code", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.blog-header {
+  font-family: "Young Serif", serif;
+  font-size: 1.875rem;
+  font-weight: 400;
+  color: white;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.2;
+}
+
+.blog-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.blog-link:hover {
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .blog-header {
+    font-size: 2.25rem;
+  }
+}

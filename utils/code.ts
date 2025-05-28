@@ -43,10 +43,24 @@ export async function parseAndHighlightContent(content: string): Promise<string>
       processedContent.slice(endIndex);
   }
 
+  // Handle headers (##)
+  const headerRegex = /^## (.+)$/gm;
+  processedContent = processedContent.replace(
+    headerRegex,
+    '<h2 class="blog-header">$1</h2>'
+  );
+
   const inlineCodeRegex = /`([^`\n]+)`/g;
   processedContent = processedContent.replace(
     inlineCodeRegex,
-    '<code style="font-family: \'Fira Code\', \'Monaco\', \'Cascadia Code\', \'Roboto Mono\', monospace; background-color: rgba(255, 255, 255, 0.1); padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-size: 0.875em;">$1</code>'
+    '<code class="blog-code">$1</code>'
+  );
+
+  // Handle plain URLs
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  processedContent = processedContent.replace(
+    urlRegex,
+    '<a href="$1" class="blog-link" target="_blank">$1</a>'
   );
 
   return processedContent;
