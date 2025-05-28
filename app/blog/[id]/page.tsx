@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import { Young_Serif } from "next/font/google";
 import { calculateReadTime, formatTimestamp } from "@/utils/time";
 import { parseAndHighlightContent } from "@/utils/code";
+import { Metadata } from "next";
 
 const youngSerif = Young_Serif({
   subsets: ["latin"],
@@ -42,6 +43,63 @@ async function getPost(id: string) {
       image: "",
     };
   }
+}
+
+// Helper function to create excerpt from content
+function createExcerpt(content: string, maxLength: number = 160): string {
+  // Remove HTML tags and code blocks for a clean excerpt
+  const cleanContent = content
+    .replace(/<[^>]*>/g, "") // Remove HTML tags
+    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+    .replace(/`[^`]*`/g, "") // Remove inline code
+    .replace(/\n+/g, " ") // Replace newlines with spaces
+    .trim();
+
+  if (cleanContent.length <= maxLength) {
+    return cleanContent;
+  }
+
+  return cleanContent.substring(0, maxLength).replace(/\s+\S*$/, "") + "...";
+}
+
+export async function generateMetadata(props: Params): Promise<Metadata> {
+  const params = await props.params;
+  const id = params.id;
+
+  const post: PostType = await getPost(id);
+  const excerpt = createExcerpt(post.content);
+
+  return {
+    title: post.title,
+    description: excerpt,
+    openGraph: {
+      title: post.title,
+      description: excerpt,
+      type: "article",
+      url: `${
+        process.env.NEXT_PUBLIC_SITE_URL || "https://jacobdarvin.com"
+      }/blog/${id}`,
+      images: post.image
+        ? [
+            {
+              url: post.image,
+              width: 1200,
+              height: 600,
+              alt: post.title,
+            },
+          ]
+        : [],
+      siteName: "Jacob's Life Box",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: excerpt,
+      images: post.image ? [post.image] : [],
+    },
+    authors: [{ name: "Jacob Darvin" }],
+    keywords: ["blog", "technology", "programming", "web development"],
+  };
 }
 
 export default async function BlogIdPage(props: Params) {
