@@ -100,9 +100,9 @@
 }
 
 .blog-link {
-  text-decoration: underline;
   cursor: pointer;
   color: inherit;
+  font-weight: 500;
   transition: opacity 0.2s ease;
 }
 

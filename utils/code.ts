@@ -61,6 +61,26 @@ export async function parseAndHighlightContent(content: string): Promise<string>
     '<code class="blog-code">$1</code>'
   );
 
+  // Handle plain URLs (before song references to avoid conflicts)
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  processedContent = processedContent.replace(
+    urlRegex,
+    '<a href="$1" class="blog-link underline" target="_blank">$1</a>'
+  );
+
+  // Handle song references
+  const songRegex = /<song>([^<]+)<\/song>/g;
+  processedContent = processedContent.replace(
+    songRegex,
+    (_match, songName) => {
+      const trimmedSong = songName.trim();
+      const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(trimmedSong)}`;
+      return `<a href="${youtubeSearchUrl}"class="blog-link inline-flex items-center gap-2" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music-icon lucide-music"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                ${trimmedSong}
+              </a>`;
+    });
+
   // Handle bold text
   const boldRegex = /\*\*([^*\n]+)\*\*/g;
   processedContent = processedContent.replace(
@@ -73,13 +93,6 @@ export async function parseAndHighlightContent(content: string): Promise<string>
   processedContent = processedContent.replace(
     italicRegex,
     '<em>$1</em>'
-  );
-
-  // Handle plain URLs
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  processedContent = processedContent.replace(
-    urlRegex,
-    '<a href="$1" class="blog-link" target="_blank">$1</a>'
   );
 
   // Restore code blocks from placeholders
