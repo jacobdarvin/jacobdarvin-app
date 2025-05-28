@@ -84,6 +84,31 @@ export default async function BlogPage() {
             <span>Nothing yet.</span>
           )}
         </div>
+
+        <div className="mt-12 pt-8 border-t border-neutral-800">
+          <h1 className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
+            Jacob&apos;s Life Box
+          </h1>
+          <p className="text-white/70 mt-2">
+            Thanks for checking this out! Please don&apos;t take anything too
+            seriously 😄
+          </p>
+          <p className="text-white/70 mt-2">
+            Want to get in touch? Email me at{" "}
+            <a
+              href="mailto:jacobisdarvin@gmail.com"
+              className="underline text-white hover:text-white/80 transition-colors"
+            >
+              jacobisdarvin@gmail.com
+            </a>
+          </p>
+          <Link
+            href="/"
+            className="inline-block mt-4 bg-neutral-900 hover:bg-neutral-900/50 transition-colors py-2 px-5 rounded-full border border-neutral-800"
+          >
+            Back to jacobdarvin.com
+          </Link>
+        </div>
       </div>
     </>
   );
