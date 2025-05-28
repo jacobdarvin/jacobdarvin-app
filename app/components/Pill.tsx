@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { BsBoxFill } from "react-icons/bs";
 import {
@@ -50,15 +51,14 @@ const Pill: React.FC<PillProps> = ({
   };
 
   return (
-    <a
+    <Link
       href={href}
-      className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium hover:bg-gray-50"
+      className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium hover:bg-neutral-100"
       target={contain ? "_self" : "_blank"}
-      rel="noopener noreferrer"
     >
       {getLogo(label)}
       {handle}
-    </a>
+    </Link>
   );
 };
 

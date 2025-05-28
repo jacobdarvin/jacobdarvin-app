@@ -98,11 +98,7 @@ export default async function BlogIdPage(props: Params) {
 
           <div className="prose prose-lg prose-invert max-w-none">
             {paragraphs.map((paragraph, index) => {
-              // Check if paragraph contains highlighted code (starts with <pre) or inline code
-              if (
-                paragraph.trim().startsWith("<pre") ||
-                paragraph.includes('<code class="inline-code"')
-              ) {
+              if (paragraph.includes("<")) {
                 return (
                   <div
                     key={index}
@@ -112,7 +108,6 @@ export default async function BlogIdPage(props: Params) {
                 );
               }
 
-              // Regular paragraph
               return (
                 <p key={index} className="text-white/90 mb-6 leading-relaxed">
                   {paragraph}
