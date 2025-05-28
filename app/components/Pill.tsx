@@ -11,13 +11,19 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosDocument } from "react-icons/io";
 
-type PillProps = {
+interface PillProps {
   href: string;
   label: string;
   handle: string;
-};
+  contain?: boolean;
+}
 
-const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
+const Pill: React.FC<PillProps> = ({
+  href,
+  label,
+  handle,
+  contain = false,
+}: PillProps) => {
   const getLogo = (label: string) => {
     switch (label) {
       case "GitHub":
@@ -47,7 +53,7 @@ const Pill: React.FC<PillProps> = ({ href, label, handle }) => {
     <a
       href={href}
       className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium hover:bg-gray-50"
-      target="_blank"
+      target={contain ? "_self" : "_blank"}
       rel="noopener noreferrer"
     >
       {getLogo(label)}
