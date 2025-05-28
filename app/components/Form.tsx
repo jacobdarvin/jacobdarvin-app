@@ -82,7 +82,7 @@ export default function Form() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 py-8 md:py-16">
-      <div className="w-full max-w-2xl p-8 space-y-4 bg-white rounded-lg shadow-md ">
+      <div className="w-full max-w-2xl p-8 space-y-4 bg-neutral-50 rounded-lg shadow-md ">
         <h1 className="text-2xl font-bold tracking-tight">Create a New Post</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -109,7 +109,7 @@ export default function Form() {
                     fill
                     className="rounded-lg object-cover"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
+                  <div className="absolute inset-0 bg-neutral-950 bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
                     <p className="text-white font-medium">
                       Click to change image
                     </p>

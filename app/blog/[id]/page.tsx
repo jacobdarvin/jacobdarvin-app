@@ -126,7 +126,7 @@ export default async function BlogIdPage(props: Params) {
           </p>
           <Link
             href="/blog"
-            className="inline-block mt-4 bg-white/10 hover:bg-white/15 transition-colors py-2 px-5 rounded-full border border-neutral-800"
+            className="inline-block mt-4 bg-neutral-900 hover:bg-neutral-900/50 transition-colors py-2 px-5 rounded-full border border-neutral-800"
           >
             More entries
           </Link>

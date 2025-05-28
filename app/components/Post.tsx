@@ -22,7 +22,7 @@ export default function Post({ post, isLatest = false }: PostProps) {
     <Link href={`/blog/${post.id}`}>
       <div
         className={
-          "backdrop-blur-sm bg-white/5 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-colors border border-neutral-800 h-full"
+          "backdrop-blur-sm bg-neutral-900 rounded-xl p-6 md:p-8 hover:bg-neutral-900/50 transition-colors border border-neutral-800 h-full"
         }
       >
         <article className="flex flex-col md:flex-row gap-4 h-full">
@@ -54,7 +54,7 @@ export default function Post({ post, isLatest = false }: PostProps) {
                 />
               </div>
             ) : (
-              <div className="w-full h-full bg-white/10 rounded-lg flex items-center justify-center">
+              <div className="w-full h-full bg-neutral-700 rounded-lg flex items-center justify-center">
                 <span className="text-white/40">No image</span>
               </div>
             )}
