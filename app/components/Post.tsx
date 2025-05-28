@@ -48,7 +48,7 @@ export default function Post({ post, isLatest = false }: PostProps) {
                 <Image
                   src={post.image}
                   alt={post.title}
-                  className="rounded-lg object-cover object-top"
+                  className="rounded-lg object-cover"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />

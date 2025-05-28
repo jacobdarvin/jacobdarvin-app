@@ -4,7 +4,7 @@ export async function highlightCode(code: string, language: string = 'javascript
   try {
     const html = await codeToHtml(code, {
       lang: language,
-      theme: 'github-dark',
+      theme: 'one-dark-pro',
       transformers: [
         {
           pre(node) {
@@ -26,20 +26,24 @@ export async function highlightCode(code: string, language: string = 'javascript
 export async function parseAndHighlightContent(content: string): Promise<string> {
   let processedContent = content;
 
+  // First, find and temporarily replace code blocks with placeholders
   const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
   const blockMatches = Array.from(content.matchAll(codeBlockRegex));
+  const codeBlockPlaceholders: string[] = [];
 
+  // Replace code blocks with placeholders
   for (let i = blockMatches.length - 1; i >= 0; i--) {
     const match = blockMatches[i];
     const [fullMatch, language = 'text', code] = match;
     const startIndex = match.index!;
     const endIndex = startIndex + fullMatch.length;
 
-    const highlightedCode = await highlightCode(code.trim(), language);
+    const placeholder = `__CODE_BLOCK_${i}__`;
+    codeBlockPlaceholders[i] = await highlightCode(code.trim(), language);
 
     processedContent =
       processedContent.slice(0, startIndex) +
-      highlightedCode +
+      placeholder +
       processedContent.slice(endIndex);
   }
 
@@ -50,10 +54,25 @@ export async function parseAndHighlightContent(content: string): Promise<string>
     '<h2 class="blog-header">$1</h2>'
   );
 
+  // Handle inline code (now safe from code blocks)
   const inlineCodeRegex = /`([^`\n]+)`/g;
   processedContent = processedContent.replace(
     inlineCodeRegex,
     '<code class="blog-code">$1</code>'
+  );
+
+  // Handle bold text
+  const boldRegex = /\*\*([^*\n]+)\*\*/g;
+  processedContent = processedContent.replace(
+    boldRegex,
+    '<strong>$1</strong>'
+  );
+
+  // Handle italic text
+  const italicRegex = /\*([^*\n]+)\*/g;
+  processedContent = processedContent.replace(
+    italicRegex,
+    '<em>$1</em>'
   );
 
   // Handle plain URLs
@@ -62,6 +81,12 @@ export async function parseAndHighlightContent(content: string): Promise<string>
     urlRegex,
     '<a href="$1" class="blog-link" target="_blank">$1</a>'
   );
+
+  // Restore code blocks from placeholders
+  for (let i = 0; i < codeBlockPlaceholders.length; i++) {
+    const placeholder = `__CODE_BLOCK_${i}__`;
+    processedContent = processedContent.replace(placeholder, codeBlockPlaceholders[i]);
+  }
 
   return processedContent;
 }

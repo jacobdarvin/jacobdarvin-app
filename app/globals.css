@@ -110,6 +110,51 @@
   opacity: 0.8;
 }
 
+/* Code block styling for horizontal scrolling */
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre;
+  background: #171717 !important;
+  border: 1px solid #333;
+}
+
+pre code {
+  display: block;
+  min-width: max-content;
+}
+
+/* Ensure code blocks don't break out of containers */
+.prose pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Custom scrollbar styling for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox scrollbar styling */
+pre {
+  scrollbar-width: thin;
+  scrollbar-color: #3a424d #24292e;
+}
+
 @media (min-width: 768px) {
   .blog-header {
     font-size: 2.25rem;
