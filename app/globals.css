@@ -152,7 +152,7 @@ pre::-webkit-scrollbar-thumb:hover {
 /* Firefox scrollbar styling */
 pre {
   scrollbar-width: thin;
-  scrollbar-color: #3a424d #24292e;
+  scrollbar-color: #404040 #262626;
 }
 
 @media (min-width: 768px) {
