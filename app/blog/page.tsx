@@ -52,7 +52,7 @@ export default async function BlogPage() {
 
         <header className="mb-12">
           <h1 className={`${youngSerif.className} text-4xl md:text-5xl mb-3 `}>
-            Jacob&apos;s Life Box
+            Jacob&apos;s Blog
           </h1>
           <p className="text-white/70 text-lg">
             Thoughts and takeaways about the things that happen in my life.
@@ -87,7 +87,7 @@ export default async function BlogPage() {
 
         <div className="mt-12 pt-8 border-t border-neutral-800">
           <h1 className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
-            Jacob&apos;s Life Box
+            Jacob&apos;s Blog
           </h1>
           <p className="text-white/70 mt-2">
             Thanks for checking this out! Please don&apos;t take anything too

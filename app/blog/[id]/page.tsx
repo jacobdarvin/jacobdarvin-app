@@ -89,7 +89,7 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
             },
           ]
         : [],
-      siteName: "Jacob's Life Box",
+      siteName: "Jacob's Blog",
     },
     twitter: {
       card: "summary_large_image",
@@ -177,7 +177,7 @@ export default async function BlogIdPage(props: Params) {
 
         <div className="mt-12 pt-8 border-t border-neutral-800">
           <h1 className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
-            Jacob&apos;s Life Box
+            Jacob&apos;s Blog
           </h1>
           <p className="text-white/70 mt-2">
             Thank you for reading! Check out more stuff from my blog.

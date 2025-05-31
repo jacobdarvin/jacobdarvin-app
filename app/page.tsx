@@ -51,7 +51,7 @@ export default function Home() {
             <Pill
               href="/blog"
               label="Blog"
-              handle="Jacob's Life Box"
+              handle="Jacob's Blog"
               contain={true}
             />
           </div>
