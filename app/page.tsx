@@ -92,7 +92,8 @@ export default function Home() {
             />
           </div>
           <p className={`${youngSerif.className} mt-6`}>
-            And more than anything in this world, I am human.
+            And more than anything in this world, I am{" "}
+            <span className="text-neutral-500">human</span>.
           </p>
         </div>
       </main>
