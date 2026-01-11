@@ -16,12 +16,12 @@ export default function Home() {
           <div className="flex items-end justify-between">
             <div>
               <span className="font-medium">Jacob Darvin • </span>
-              <span className="text-neutral-500">
+              <span className="text-neutral-400">
                 Full Stack Engineer @ Harmoney
               </span>
             </div>
             <Image
-              src="/me.jpeg"
+              src="/moi.jpeg"
               alt="Jacob Darvin"
               width={128}
               height={128}
@@ -62,7 +62,7 @@ export default function Home() {
         <div className="flex flex-col gap-2">
           <div>
             <span className="font-medium">Staykay • </span>
-            <span className="text-neutral-500">Co-Founder</span>
+            <span className="text-neutral-400">Co-Founder</span>
           </div>
           <div className="flex flex-wrap gap-2">
             <Pill
@@ -92,8 +92,7 @@ export default function Home() {
             />
           </div>
           <p className={`${youngSerif.className} mt-6`}>
-            And more than anything in this world, I am{" "}
-            <span className="text-neutral-500">human</span>.
+            Malgré tout, je reste humain.
           </p>
         </div>
       </main>
