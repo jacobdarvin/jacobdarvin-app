@@ -55,7 +55,7 @@ export default async function BlogPage() {
             Jacob&apos;s Blog
           </h1>
           <p className="text-white/70 text-lg">
-            Thoughts and takeaways about the things that happen in my life.
+            Que se passe-t-il dans ma vie ?
           </p>
         </header>
 
