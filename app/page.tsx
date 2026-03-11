@@ -92,7 +92,7 @@ export default function Home() {
             />
           </div>
           <p className={`${youngSerif.className} mt-6`}>
-            Malgré tout, je reste humain.
+            Malgré tout, c&apos;est toujours toi.
           </p>
         </div>
       </main>
