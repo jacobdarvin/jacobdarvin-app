@@ -61,35 +61,35 @@ export default function Home() {
 
         <div className="flex flex-col gap-2">
           <div>
-            <span className="font-medium">Staykay • </span>
-            <span className="text-neutral-400">Co-Founder</span>
+            <span className="font-medium">flashm8 • </span>
+            <span className="text-neutral-400">Creator</span>
           </div>
           <div className="flex flex-wrap gap-2">
             <Pill
-              href="https://staykay.ph"
+              href="https://flashm8.com"
               label="Link"
-              handle="www.staykay.ph"
+              handle="www.flashm8.com"
             />
-            <Pill
-              href="https://www.linkedin.com/company/staykay"
+            {/* <Pill
+              href="https://www.linkedin.com/company/flashm8"
               label="LinkedIn"
-              handle="staykay"
+              handle="flashm8"
             />
             <Pill
-              href="https://github.com/staykay-ph"
+              href="https://github.com/flashm8"
               label="GitHub"
-              handle="staykay-ph"
+              handle="flashm8"
             />
             <Pill
-              href="mailto:hello@staykay.ph"
+              href="mailto:hello@flashm8.com"
               label="Email"
-              handle="hello@staykay.ph"
+              handle="hello@flashm8.com"
             />
             <Pill
-              href="mailto:jacob@staykay.ph"
+              href="mailto:jacob@flashm8.com"
               label="Email"
-              handle="jacob@staykay.ph"
-            />
+              handle="jacob@flashm8.com"
+            /> */}
           </div>
           <p className={`${youngSerif.className} mt-6`}>
             Malgré tout, c&apos;est toujours toi.
