@@ -17,7 +17,7 @@ export default function Home() {
             <div>
               <span className="font-medium">Jacob Darvin • </span>
               <span className="text-neutral-400">
-                Full Stack Engineer @ Harmoney
+                Engineering @ Harmoney
               </span>
             </div>
             <Image
@@ -92,7 +92,7 @@ export default function Home() {
             /> */}
           </div>
           <p className={`${youngSerif.className} mt-6`}>
-            Malgré tout, c&apos;est toujours toi.
+            Je suis jeune, naïve et plein d&apos;ambition.
           </p>
         </div>
       </main>
