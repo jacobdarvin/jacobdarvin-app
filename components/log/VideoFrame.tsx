@@ -11,7 +11,7 @@ type VideoFrameProps = {
   audio?: string | null;
   /** Makes the whole frame a link, e.g. to the post itself. */
   href?: string;
-  /** Shown over the bottom of the frame. */
+  /** Shown over the middle of the frame. */
   children?: React.ReactNode;
 };
 
@@ -113,7 +113,7 @@ export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
       )}
 
       {children && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent p-5 pt-24 text-white md:p-10 md:pt-32">
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-black/10 p-5 text-center text-white md:p-10">
           {children}
         </div>
       )}

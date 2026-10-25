@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IoMdArrowBack } from "react-icons/io";
+import { BackLink } from "./BackLink";
 
 export function LogHeader() {
   return (
@@ -10,13 +10,7 @@ export function LogHeader() {
       >
         log
       </Link>
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <IoMdArrowBack aria-hidden className="size-4" />
-        Back
-      </Link>
+      <BackLink />
     </header>
   );
 }
