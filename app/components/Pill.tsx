@@ -53,7 +53,7 @@ const Pill: React.FC<PillProps> = ({
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium hover:bg-neutral-100"
+      className="flex items-center gap-2 px-4 py-2 border border-black rounded-full text-sm font-medium hover:bg-neutral-100"
       target={contain ? "_self" : "_blank"}
     >
       {getLogo(label)}

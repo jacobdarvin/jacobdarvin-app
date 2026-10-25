@@ -16,12 +16,10 @@ export default function Home() {
           <div className="flex items-end justify-between">
             <div>
               <span className="font-medium">Jacob Darvin • </span>
-              <span className="text-neutral-400">
-                Engineering @ Harmoney
-              </span>
+              <span className="text-neutral-400">Engineering @ Harmoney</span>
             </div>
             <Image
-              src="/moi.jpeg"
+              src="/moi_1.jpeg"
               alt="Jacob Darvin"
               width={128}
               height={128}
@@ -46,11 +44,6 @@ export default function Home() {
               handle="jacobisdarvin@gmail.com"
             />
             <Pill
-              href="https://facebook.com/jacobdarvin"
-              label="Facebook"
-              handle="Jacob Darvin"
-            />
-            <Pill
               href="/blog"
               label="Blog"
               handle="Jacob's Blog"
@@ -60,7 +53,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <div>
+          {/* <div>
             <span className="font-medium">flashm8 • </span>
             <span className="text-neutral-400">Creator</span>
           </div>
@@ -70,7 +63,7 @@ export default function Home() {
               label="Link"
               handle="www.flashm8.com"
             />
-            {/* <Pill
+            <Pill
               href="https://www.linkedin.com/company/flashm8"
               label="LinkedIn"
               handle="flashm8"
@@ -89,9 +82,9 @@ export default function Home() {
               href="mailto:jacob@flashm8.com"
               label="Email"
               handle="jacob@flashm8.com"
-            /> */}
-          </div>
-          <p className={`${youngSerif.className} mt-6`}>
+            />
+          </div> */}
+          <p className={`${youngSerif.className}`}>
             Je suis jeune, naïve et plein d&apos;ambition.
           </p>
         </div>
