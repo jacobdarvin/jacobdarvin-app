@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { formatDate, toISODate, type Post } from "@/lib/blog";
+import { formatDate, toISODate, type Post } from "@/lib/log";
 
 /** A post in the grid; its video previews silently on hover. */
 export function PostThumb({ post }: { post: Post }) {
@@ -11,7 +11,7 @@ export function PostThumb({ post }: { post: Post }) {
 
   return (
     <Link
-      href={`/blog/${post.id}`}
+      href={`/log/${post.id}`}
       className="group block"
       onPointerEnter={() => videoRef.current?.play().catch(() => {})}
       onPointerLeave={() => videoRef.current?.pause()}

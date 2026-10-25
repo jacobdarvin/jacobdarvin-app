@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MoreEntries } from "@/components/blog/MoreEntries";
-import { VideoFrame } from "@/components/blog/VideoFrame";
+import { MoreEntries } from "@/components/log/MoreEntries";
+import { VideoFrame } from "@/components/log/VideoFrame";
 import {
   excerpt,
   formatDate,
@@ -9,12 +9,12 @@ import {
   getPosts,
   readTime,
   toISODate,
-} from "@/lib/blog";
+} from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
 
 export async function generateMetadata({
   params,
-}: PageProps<"/blog/[id]">): Promise<Metadata> {
+}: PageProps<"/log/[id]">): Promise<Metadata> {
   const { id } = await params;
   const post = await getPost(id);
   if (!post) {
@@ -30,8 +30,8 @@ export async function generateMetadata({
     authors: [{ name: "Jacob Darvin" }],
     openGraph: {
       type: "article",
-      url: `/blog/${id}`,
-      siteName: "Jacob's Blog",
+      url: `/log/${id}`,
+      siteName: "Jacob's Log",
       title: post.title,
       description,
       publishedTime: toISODate(post.created_at),
@@ -47,9 +47,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default async function LogPostPage({
   params,
-}: PageProps<"/blog/[id]">) {
+}: PageProps<"/log/[id]">) {
   const { id } = await params;
   const [post, posts] = await Promise.all([getPost(id), getPosts()]);
   if (!post) {

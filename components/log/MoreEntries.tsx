@@ -1,4 +1,4 @@
-import type { Post } from "@/lib/blog";
+import type { Post } from "@/lib/log";
 import { PostThumb } from "./PostThumb";
 
 export function MoreEntries({ posts }: { posts: Post[] }) {

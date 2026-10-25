@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-export default function BlogError({
+export default function LogError({
   error,
   retry,
 }: {
@@ -16,7 +16,7 @@ export default function BlogError({
 
   return (
     <div className="mx-auto max-w-[65ch] px-4 py-24">
-      <h1 className="font-serif text-4xl">Couldn&apos;t load the blog</h1>
+      <h1 className="font-serif text-4xl">Couldn&apos;t load the log</h1>
       <p className="mt-3 mb-6 text-muted-foreground">
         Something went wrong fetching posts.
       </p>

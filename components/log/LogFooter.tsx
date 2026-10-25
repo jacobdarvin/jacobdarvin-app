@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function BlogFooter() {
+export function LogFooter() {
   return (
     <footer className="flex flex-wrap items-baseline justify-between gap-4 px-4 pt-8 pb-12 text-sm text-muted-foreground md:px-8">
       <p>

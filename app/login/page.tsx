@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main
-      className={`blog flex min-h-svh items-center justify-center bg-background px-4 py-16 text-foreground`}
+      className={`log flex min-h-svh items-center justify-center bg-background px-4 py-16 text-foreground`}
     >
       <div className="w-full max-w-sm">
         <h1 className="font-serif text-5xl">Hey me!</h1>

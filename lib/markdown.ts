@@ -1,7 +1,7 @@
 import { codeToHtml } from "shiki";
 
 /*
- * A deliberately small markdown dialect for blog posts:
+ * A deliberately small markdown dialect for log posts:
  *
  *   ## Heading            ```lang fenced code```     `inline code`
  *   **bold**  *italic*    [text](https://…)          bare https://… links

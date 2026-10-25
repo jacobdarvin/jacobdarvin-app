@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { MoreEntries } from "@/components/blog/MoreEntries";
-import { VideoFrame } from "@/components/blog/VideoFrame";
-import { formatDate, getPosts, readTime, toISODate } from "@/lib/blog";
+import { MoreEntries } from "@/components/log/MoreEntries";
+import { VideoFrame } from "@/components/log/VideoFrame";
+import { formatDate, getPosts, readTime, toISODate } from "@/lib/log";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Log",
   description: "Que se passe-t-il dans ma vie ?",
 };
 
 /** Fits a 4:3 frame on screen under the header. */
 const frame = "mx-auto w-full max-w-[calc((100svh-6rem)*4/3)]";
 
-export default async function BlogPage() {
+export default async function LogPage() {
   const [latest, ...others] = await getPosts();
 
   return (
@@ -19,7 +19,7 @@ export default async function BlogPage() {
       <section aria-label="Latest entry" className="px-4 md:px-8">
         <div className={frame}>
           {latest ? (
-            <VideoFrame post={latest} href={`/blog/${latest.id}`}>
+            <VideoFrame post={latest} href={`/log/${latest.id}`}>
               <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em]">
                 {latest.title}
               </h1>

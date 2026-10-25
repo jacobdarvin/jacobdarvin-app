@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { apiUrl, type Post } from "@/lib/blog";
+import { apiUrl, type Post } from "@/lib/log";
 
 export type FormState = { error?: string };
 
@@ -98,8 +98,8 @@ export async function createPost(
   }
 
   const post: Post = await res.json();
-  revalidatePath("/blog");
-  redirect(`/blog/${post.id}`);
+  revalidatePath("/log");
+  redirect(`/log/${post.id}`);
 }
 
 function errorMessage(prefix: string, status: number) {

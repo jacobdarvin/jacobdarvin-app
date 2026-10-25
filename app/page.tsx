@@ -20,7 +20,7 @@ const links = [
     icon: FaEnvelope,
     label: "jacobisdarvin@gmail.com",
   },
-  { href: "/blog", icon: IoMdFilm, label: "log", inverted: true },
+  { href: "/log", icon: IoMdFilm, label: "log", inverted: true },
 ];
 
 export default function Home() {

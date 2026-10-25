@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Post } from "@/lib/blog";
+import type { Post } from "@/lib/log";
 
 type VideoFrameProps = {
   post: Pick<Post, "title" | "image" | "video" | "audio">;
