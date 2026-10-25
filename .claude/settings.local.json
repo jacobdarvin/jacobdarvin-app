@@ -4,7 +4,10 @@
       "WebFetch(domain:vercel.com)",
       "Bash(node firebase.mjs /Users/jacobdarvin/Desktop/repositories/jacobdarvin-app set-cors)",
       "Bash(curl -s -o /dev/null -D - -X OPTIONS \"https://storage.googleapis.com/jacobdarvin-app.firebasestorage.app/log/test\" -H \"Origin: http://localhost:3000\" -H \"Access-Control-Request-Method: PUT\" -H \"Access-Control-Request-Headers: content-type\")",
-      "Bash(curl -s -o /dev/null -D - -X OPTIONS \"https://storage.googleapis.com/jacobdarvin-app.firebasestorage.app/log/test\" -H \"Origin: https://evil.example\" -H \"Access-Control-Request-Method: PUT\")"
+      "Bash(curl -s -o /dev/null -D - -X OPTIONS \"https://storage.googleapis.com/jacobdarvin-app.firebasestorage.app/log/test\" -H \"Origin: https://evil.example\" -H \"Access-Control-Request-Method: PUT\")",
+      "Bash(sed -i '' -e '64,94s/^/    /' -e '64,94s/text-muted-foreground/text-white\\\\/70/g' -e '64,94s/text-foreground/text-white/g' -e '64,94s/\"prose prose-lg/\"prose md:prose-lg/' \"app/log/[id]/page.tsx\")",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)"
     ]
   }
 }
