@@ -11,17 +11,25 @@ type VideoFrameProps = {
   audio?: string | null;
   /** Makes the whole frame a link, e.g. to the post itself. */
   href?: string;
-  /** Shown over the middle of the frame. */
+  /** Turns the sound on as soon as the browser allows; otherwise it starts off. */
+  autoSound?: boolean;
+  /** Shown over the middle of the frame, left-aligned. */
   children?: React.ReactNode;
 };
 
 /**
- * A 4:3 frame that autoplays the post's video with its sound: the `audio`
- * track if one is given, otherwise the video's own. Browsers block sound
- * until the visitor interacts with the page, so it falls back to playing
- * muted and turns the sound on at the first click or key press.
+ * A 4:3 frame that autoplays the post's video muted. With `autoSound` it
+ * then plays the `audio` track if one is given, otherwise the video's own
+ * sound. Browsers block sound until the visitor interacts with the page, so
+ * it stays muted and turns the sound on at the first click or key press.
  */
-export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
+export function VideoFrame({
+  post,
+  audio,
+  href,
+  autoSound,
+  children,
+}: VideoFrameProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const stopWaitingRef = useRef(() => {});
@@ -56,6 +64,8 @@ export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
   }, []);
 
   useEffect(() => {
+    if (!autoSound) return;
+
     const enableOnInteraction = (event: Event) => {
       if ((event.target as Element).closest?.("[data-sound-toggle]")) return;
       stopWaiting();
@@ -74,7 +84,7 @@ export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
       }
     });
     return stopWaiting;
-  }, [setSound]);
+  }, [autoSound, setSound]);
 
   return (
     <div className="relative aspect-4/3 w-full overflow-hidden bg-card">
@@ -113,8 +123,8 @@ export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
       )}
 
       {children && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-black/10 p-5 text-center text-white md:p-10">
-          {children}
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-black/10 p-5 text-white md:p-10">
+          <div className="max-w-full text-left">{children}</div>
         </div>
       )}
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { formatDate, readTime, toISODate } from "@/lib/log";
+import { formatDate, toISODate } from "@/lib/log";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -24,12 +24,10 @@ export default async function LogPage() {
               <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em]">
                 {latest.title}
               </h1>
-              <p className="mt-3 text-sm text-white/75">
+              <p className="mt-4 text-white/70">
                 <time dateTime={toISODate(latest.created_at)}>
                   {formatDate(latest.created_at)}
                 </time>
-                {" · "}
-                {readTime(latest.content)}
               </p>
             </VideoFrame>
           ) : (

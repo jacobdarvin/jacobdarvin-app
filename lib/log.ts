@@ -26,11 +26,6 @@ export function toISODate(timestamp: Post["created_at"]) {
   return new Date(timestamp).toISOString();
 }
 
-export function readTime(content: string) {
-  const words = content.trim().split(/\s+/).length;
-  return `${Math.max(1, Math.ceil(words / 238))} min read`;
-}
-
 /** Plain-text summary of a post's markdown, for cards and meta descriptions. */
 export function excerpt(content: string, maxLength = 160) {
   const text = content

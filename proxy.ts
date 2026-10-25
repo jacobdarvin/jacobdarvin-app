@@ -8,7 +8,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/post", request.url));
   }
 
-  if (pathname.startsWith("/post") && !isSignedIn) {
+  if (
+    (pathname.startsWith("/post") || pathname.startsWith("/edit")) &&
+    !isSignedIn
+  ) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -16,5 +19,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/post"],
+  matcher: ["/login", "/post", "/edit/:path*"],
 };

@@ -17,31 +17,36 @@ type MediaDropzoneProps = {
   label: string;
   hint: string;
   file: File | null;
+  /** A file already saved, shown until one is chosen. */
+  src?: string | null;
   onChange: (file: File | null) => void;
   className?: string;
 };
 
 /**
  * Click or drop a file in; shows a playable preview once chosen. The parent
- * holds the file and adds it to the form data itself.
+ * holds the file and adds it to the form data itself. Removing calls
+ * `onChange(null)`, which also stands for removing a saved `src`.
  */
 export function MediaDropzone({
   kind,
   label,
   hint,
   file,
+  src,
   onChange,
   className,
 }: MediaDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
-  const url = useMemo(() => file && URL.createObjectURL(file), [file]);
+  const blobUrl = useMemo(() => file && URL.createObjectURL(file), [file]);
+  const url = blobUrl ?? src;
 
   useEffect(() => {
     return () => {
-      if (url) URL.revokeObjectURL(url);
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
-  }, [url]);
+  }, [blobUrl]);
 
   const accept = (candidate: File | undefined) => {
     if (candidate?.type.startsWith(`${kind}/`)) onChange(candidate);
@@ -62,7 +67,7 @@ export function MediaDropzone({
         }}
       />
 
-      {file && url ? (
+      {url ? (
         <div>
           {kind === "video" && (
             <video
@@ -75,7 +80,7 @@ export function MediaDropzone({
           )}
           {kind === "audio" && <audio src={url} controls className="w-full" />}
           {kind === "image" && (
-            // eslint-disable-next-line @next/next/no-img-element -- local blob preview
+            // eslint-disable-next-line @next/next/no-img-element -- blob or saved preview
             <img
               src={url}
               alt="Cover preview"
@@ -84,7 +89,7 @@ export function MediaDropzone({
           )}
           <div className="mt-2 flex items-baseline justify-between gap-4 text-sm">
             <span className="truncate text-muted-foreground">
-              {file.name} · {formatBytes(file.size)}
+              {file ? `${file.name} · ${formatBytes(file.size)}` : "Saved"}
             </span>
             <span className="flex shrink-0 gap-4">
               <button

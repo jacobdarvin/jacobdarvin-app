@@ -4,7 +4,7 @@ import { IoMusicalNotes } from "react-icons/io5";
 import { CreditRoll } from "@/components/log/CreditRoll";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { excerpt, formatDate, readTime, toISODate } from "@/lib/log";
+import { excerpt, formatDate, toISODate } from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, getPosts } from "@/lib/posts";
 
@@ -43,9 +43,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LogPostPage({
-  params,
-}: PageProps<"/log/[id]">) {
+export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
   const { id } = await params;
   const [post, posts] = await Promise.all([getPost(id), getPosts()]);
   if (!post) {
@@ -59,7 +57,7 @@ export default async function LogPostPage({
     <>
       <article className="px-4 md:px-8">
         <div className="mx-auto w-full max-w-[calc((100svh-6rem)*4/3)]">
-          <CreditRoll frame={<VideoFrame post={post} audio={post.audio} />}>
+          <CreditRoll frame={<VideoFrame post={post} audio={post.audio} autoSound />}>
             <div className="mx-auto max-w-[65ch]">
               <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
                 {post.title}
@@ -68,12 +66,17 @@ export default async function LogPostPage({
                 <time dateTime={toISODate(post.created_at)}>
                   {formatDate(post.created_at)}
                 </time>
-                {" · "}
-                {readTime(post.content)}
               </p>
+              <div
+                className="prose md:prose-lg mt-10 max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
               {post.song_title && (
-                <p className="mt-2 flex items-center gap-2 text-white/70">
-                  <IoMusicalNotes aria-label="Song" className="size-4 shrink-0" />
+                <p className="mt-16 flex items-center gap-2 text-white/70">
+                  <IoMusicalNotes
+                    aria-label="Song"
+                    className="size-4 shrink-0"
+                  />
                   {post.song_url && /^https?:\/\//.test(post.song_url) ? (
                     <a
                       href={post.song_url}
@@ -88,10 +91,6 @@ export default async function LogPostPage({
                   )}
                 </p>
               )}
-              <div
-                className="prose md:prose-lg mt-10 max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal"
-                dangerouslySetInnerHTML={{ __html: html }}
-              />
             </div>
           </CreditRoll>
         </div>

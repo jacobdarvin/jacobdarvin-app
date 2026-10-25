@@ -6,7 +6,7 @@ export default function LogLayout({ children }: LayoutProps<"/log">) {
     <div className={`log font-sans min-h-svh bg-background text-foreground`}>
       <LogHeader />
       <main>{children}</main>
-      <LogFooter />
+      {/* <LogFooter /> */}
     </div>
   );
 }

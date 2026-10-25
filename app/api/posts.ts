@@ -19,6 +19,8 @@ const MEDIA_TYPES: Record<MediaField, string> = {
   audio: "audio/",
 };
 
+const MEDIA_FIELDS = Object.keys(MEDIA_TYPES) as MediaField[];
+
 /** The shape of the paths `prepareUploads` hands out. */
 const UPLOAD_PATH = /^log\/\d+-(image|video|audio)-[\w.-]+$/;
 
@@ -64,6 +66,71 @@ export async function createPost(
     return { error: SESSION_EXPIRED };
   }
 
+  const fields = readFields(formData);
+  if ("error" in fields) {
+    return fields;
+  }
+  const media = await publishUploads(formData);
+  if ("error" in media) {
+    return media;
+  }
+
+  const post = await db()
+    .collection("posts")
+    .add({
+      image: null,
+      video: null,
+      audio: null,
+      ...fields,
+      ...media,
+      created_at: FieldValue.serverTimestamp(),
+    });
+
+  updateTag(POSTS_TAG);
+  redirect(`/log/${post.id}`);
+}
+
+/**
+ * Saves changes to a post. A media field with a new upload replaces the
+ * file, one marked `keep_<field>` stays as it is, and any other is removed.
+ */
+export async function updatePost(
+  id: string,
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  if (!(await isSignedInAsAuthor())) {
+    return { error: SESSION_EXPIRED };
+  }
+
+  const fields = readFields(formData);
+  if ("error" in fields) {
+    return fields;
+  }
+  const media = await publishUploads(formData);
+  if ("error" in media) {
+    return media;
+  }
+  for (const field of MEDIA_FIELDS) {
+    if (!(field in media) && !formData.has(`keep_${field}`)) {
+      media[field] = null;
+    }
+  }
+
+  try {
+    // Firestore treats "/" as a path separator, so such ids can't be posts.
+    if (id.includes("/")) throw new Error();
+    await db().collection("posts").doc(id).update({ ...fields, ...media });
+  } catch {
+    return { error: "This post no longer exists." };
+  }
+
+  updateTag(POSTS_TAG);
+  redirect(`/log/${id}`);
+}
+
+/** The post's text fields, checked. */
+function readFields(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const content = String(formData.get("content") ?? "").trim();
   const songTitle = String(formData.get("song_title") ?? "").trim();
@@ -79,12 +146,20 @@ export async function createPost(
     return { error: "Add the song's title to go with its link." };
   }
 
-  const media: Record<MediaField, string | null> = {
-    image: null,
-    video: null,
-    audio: null,
+  return {
+    title,
+    content,
+    song_title: songTitle || null,
+    song_url: songUrl || null,
   };
-  for (const field of Object.keys(media) as MediaField[]) {
+}
+
+/** Makes the form's uploaded files public and returns their URLs by field. */
+async function publishUploads(
+  formData: FormData,
+): Promise<Partial<Record<MediaField, string | null>> | { error: string }> {
+  const media: Partial<Record<MediaField, string | null>> = {};
+  for (const field of MEDIA_FIELDS) {
     const path = formData.get(field);
     if (typeof path !== "string" || !path) continue;
     if (!UPLOAD_PATH.test(path)) {
@@ -99,18 +174,40 @@ export async function createPost(
     }
     media[field] = `https://storage.googleapis.com/${file.bucket.name}/${path}`;
   }
+  return media;
+}
 
-  const post = await db()
-    .collection("posts")
-    .add({
-      title,
-      content,
-      ...media,
-      song_title: songTitle || null,
-      song_url: songUrl || null,
-      created_at: FieldValue.serverTimestamp(),
-    });
+/** Deletes a post and the files uploaded for it. */
+export async function deletePost(id: string): Promise<FormState> {
+  if (!(await isSignedInAsAuthor())) {
+    return { error: SESSION_EXPIRED };
+  }
+  // Firestore treats "/" as a path separator, so such ids can't be posts.
+  if (id.includes("/")) {
+    return { error: "This post no longer exists." };
+  }
+
+  const doc = db().collection("posts").doc(id);
+  const snapshot = await doc.get();
+  if (!snapshot.exists) {
+    return { error: "This post no longer exists." };
+  }
+  await doc.delete();
+
+  // Only files this app uploaded, found by the URL `publishUploads` built.
+  const prefix = `https://storage.googleapis.com/${bucket().name}/`;
+  await Promise.all(
+    MEDIA_FIELDS.map((field) => {
+      const url = snapshot.get(field);
+      const path = typeof url === "string" && url.startsWith(prefix)
+        ? url.slice(prefix.length)
+        : null;
+      return path && UPLOAD_PATH.test(path)
+        ? bucket().file(path).delete({ ignoreNotFound: true }).catch(() => {})
+        : null;
+    }),
+  );
 
   updateTag(POSTS_TAG);
-  redirect(`/log/${post.id}`);
+  redirect("/edit");
 }

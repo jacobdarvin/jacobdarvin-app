@@ -4,6 +4,7 @@ import { startTransition, useActionState, useState } from "react";
 import {
   createPost,
   prepareUploads,
+  updatePost,
   type FormState,
   type MediaField,
 } from "@/app/api/posts";
@@ -11,12 +12,22 @@ import { MediaDropzone } from "@/components/MediaDropzone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import type { Post } from "@/lib/log";
 
-export function PostForm() {
+/** Publishes a new post, or saves changes to `post` if one is given. */
+export function PostForm({ post }: { post?: Post }) {
   const [video, setVideo] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
   const [cover, setCover] = useState<File | null>(null);
   const [coverIsAuto, setCoverIsAuto] = useState(true);
+  // The post's files that stay unless replaced or removed.
+  const [saved, setSaved] = useState<Record<MediaField, string | null>>({
+    video: post?.video ?? null,
+    audio: post?.audio ?? null,
+    image: post?.image ?? null,
+  });
+  const unsave = (field: MediaField) =>
+    setSaved((current) => ({ ...current, [field]: null }));
 
   // Files go straight from the browser to Storage; the post only gets their paths.
   const [state, formAction, pending] = useActionState(
@@ -58,15 +69,21 @@ export function PostForm() {
         }
       }
 
-      return createPost(prev, data);
+      for (const [field, url] of Object.entries(saved)) {
+        if (url && !data.has(field)) data.set(`keep_${field}`, "1");
+      }
+
+      return post ? updatePost(post.id, prev, data) : createPost(prev, data);
     },
     {},
   );
 
   const chooseVideo = async (file: File | null) => {
     setVideo(file);
+    unsave("video");
     if (coverIsAuto) {
       setCover(file && (await captureFrame(file)));
+      unsave("image");
     }
   };
 
@@ -95,6 +112,7 @@ export function PostForm() {
         label="Video"
         hint="MP4, WebM or MOV, shown in a 4:3 frame. Up to 100 MB."
         file={video}
+        src={saved.video}
         onChange={chooseVideo}
       />
 
@@ -103,7 +121,11 @@ export function PostForm() {
         label="Audio"
         hint="MP3, M4A, WAV or OGG. Plays with the video on the post page; the log's featured entry keeps the video's own sound."
         file={audio}
-        onChange={setAudio}
+        src={saved.audio}
+        onChange={(file) => {
+          setAudio(file);
+          unsave("audio");
+        }}
       />
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -115,6 +137,7 @@ export function PostForm() {
             id="song_title"
             name="song_title"
             placeholder="Artist - Title"
+            defaultValue={post?.song_title ?? ""}
             className="rounded-none"
           />
         </div>
@@ -127,6 +150,7 @@ export function PostForm() {
             name="song_url"
             type="url"
             placeholder="https://…"
+            defaultValue={post?.song_url ?? ""}
             className="rounded-none"
           />
         </div>
@@ -140,6 +164,7 @@ export function PostForm() {
           id="title"
           name="title"
           placeholder="Untitled"
+          defaultValue={post?.title}
           required
           className="h-auto rounded-none border-0 border-b px-0 py-2 font-serif text-4xl focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
         />
@@ -153,6 +178,7 @@ export function PostForm() {
           id="content"
           name="content"
           placeholder="Write something…"
+          defaultValue={post?.content}
           rows={12}
           required
           className="rounded-none bg-card text-base"
@@ -168,8 +194,10 @@ export function PostForm() {
         label="Cover"
         hint="Taken from the video automatically. Shown before it loads."
         file={cover}
+        src={saved.image}
         onChange={(file) => {
           setCover(file);
+          unsave("image");
           setCoverIsAuto(false);
         }}
         className="max-w-xs"
@@ -180,7 +208,13 @@ export function PostForm() {
         disabled={pending}
         className="h-12 w-full rounded-none text-base"
       >
-        {pending ? "Uploading and publishing…" : "Publish"}
+        {post
+          ? pending
+            ? "Uploading and saving…"
+            : "Save changes"
+          : pending
+            ? "Uploading and publishing…"
+            : "Publish"}
       </Button>
     </form>
   );
