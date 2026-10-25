@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { BackLink } from "@/components/BackLink";
-import { BlogFooter } from "@/components/BlogFooter";
-import { excerpt, formatDate, getPost, readTime, toISODate } from "@/lib/blog";
+import { MoreEntries } from "@/components/blog/MoreEntries";
+import { VideoFrame } from "@/components/blog/VideoFrame";
+import {
+  excerpt,
+  formatDate,
+  getPost,
+  getPosts,
+  readTime,
+  toISODate,
+} from "@/lib/blog";
 import { renderMarkdown } from "@/lib/markdown";
 
 export async function generateMetadata({
@@ -30,6 +36,7 @@ export async function generateMetadata({
       description,
       publishedTime: toISODate(post.created_at),
       images,
+      videos: post.video ? [{ url: post.video }] : undefined,
     },
     twitter: {
       card: post.image ? "summary_large_image" : "summary",
@@ -44,50 +51,40 @@ export default async function BlogPostPage({
   params,
 }: PageProps<"/blog/[id]">) {
   const { id } = await params;
-  const post = await getPost(id);
+  const [post, posts] = await Promise.all([getPost(id), getPosts()]);
   if (!post) {
     notFound();
   }
 
   const html = await renderMarkdown(post.content);
+  const others = posts.filter((p) => p.id !== post.id).slice(0, 3);
 
   return (
     <>
-      <BackLink href="/blog">Back to blog</BackLink>
+      <article className="px-4 md:px-8">
+        <div className="mx-auto w-full max-w-[calc((100svh-6rem)*4/3)]">
+          <VideoFrame post={post} />
+        </div>
 
-      <article>
-        <header className="mb-8">
-          <h1 className="mb-4 font-serif text-3xl md:text-5xl">{post.title}</h1>
-          <p className="text-muted-foreground">
+        <div className="mx-auto max-w-[65ch] pt-16">
+          <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
+            {post.title}
+          </h1>
+          <p className="mt-4 text-muted-foreground">
             <time dateTime={toISODate(post.created_at)}>
               {formatDate(post.created_at)}
             </time>
             {" · "}
             {readTime(post.content)}
           </p>
-        </header>
-
-        {post.image && (
-          <Image
-            src={post.image}
-            alt=""
-            width={1200}
-            height={600}
-            sizes="(max-width: 896px) 100vw, 896px"
-            className="mb-8 w-full rounded-xl"
-            priority
+          <div
+            className="prose prose-lg mt-10 max-w-none prose-invert prose-headings:font-display prose-headings:font-normal"
+            dangerouslySetInnerHTML={{ __html: html }}
           />
-        )}
-
-        <div
-          className="prose prose-lg prose-neutral max-w-none dark:prose-invert prose-headings:font-serif prose-headings:font-normal"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        </div>
       </article>
 
-      <BlogFooter href="/blog" cta="More entries">
-        <p>Thank you for reading! Check out more stuff from my blog.</p>
-      </BlogFooter>
+      {others.length > 0 && <MoreEntries posts={others} />}
     </>
   );
 }

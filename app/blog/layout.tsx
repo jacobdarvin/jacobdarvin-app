@@ -1,5 +1,15 @@
+import { BlogFooter } from "@/components/blog/BlogFooter";
+import { BlogHeader } from "@/components/blog/BlogHeader";
+import { dmSerif } from "../fonts";
+
 export default function BlogLayout({ children }: LayoutProps<"/blog">) {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 md:py-20">{children}</div>
+    <div
+      className={`blog ${dmSerif.variable} min-h-svh bg-background text-foreground`}
+    >
+      <BlogHeader />
+      <main>{children}</main>
+      <BlogFooter />
+    </div>
   );
 }

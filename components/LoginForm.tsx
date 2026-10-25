@@ -13,7 +13,7 @@ export function LoginForm() {
       {state.error && (
         <p
           role="alert"
-          className="rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+          className="bg-destructive/15 p-3 text-sm text-destructive"
         >
           {state.error}
         </p>
@@ -30,6 +30,7 @@ export function LoginForm() {
           autoComplete="email"
           placeholder="my@email.com"
           required
+          className="h-11 rounded-none bg-card"
         />
       </div>
 
@@ -43,10 +44,15 @@ export function LoginForm() {
           type="password"
           autoComplete="current-password"
           required
+          className="h-11 rounded-none bg-card"
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={pending}>
+      <Button
+        type="submit"
+        className="h-11 w-full rounded-none"
+        disabled={pending}
+      >
         {pending ? "Signing in…" : "Sign in"}
       </Button>
     </form>

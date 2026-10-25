@@ -59,18 +59,21 @@ export async function createPost(
 
   const title = String(formData.get("title") ?? "").trim();
   const content = String(formData.get("content") ?? "").trim();
-  const image = formData.get("image");
 
   if (!title || !content) {
     return { error: "Title and content are required." };
   }
 
   const authorization = { Authorization: `Bearer ${token}` };
-  let imageUrl: string | null = null;
+  const media: Record<string, string | null> = {};
 
-  if (image instanceof File && image.size > 0) {
+  for (const field of ["image", "video", "audio"]) {
+    const file = formData.get(field);
+    media[field] = null;
+    if (!(file instanceof File) || file.size === 0) continue;
+
     const upload = new FormData();
-    upload.append("file", image);
+    upload.append("file", file);
 
     const res = await fetch(apiUrl("/blog/upload"), {
       method: "POST",
@@ -78,15 +81,17 @@ export async function createPost(
       body: upload,
     });
     if (!res.ok) {
-      return { error: errorMessage("Image upload failed", res.status) };
+      return {
+        error: errorMessage(`Uploading the ${field} failed`, res.status),
+      };
     }
-    imageUrl = (await res.json()).url;
+    media[field] = (await res.json()).url;
   }
 
   const res = await fetch(apiUrl("/blog/posts"), {
     method: "POST",
     headers: { ...authorization, "Content-Type": "application/json" },
-    body: JSON.stringify({ title, content, image: imageUrl }),
+    body: JSON.stringify({ title, content, ...media }),
   });
   if (!res.ok) {
     return { error: errorMessage("Couldn't publish the post", res.status) };

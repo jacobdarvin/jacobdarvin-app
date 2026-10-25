@@ -1,71 +1,68 @@
 "use client";
 
-import Image from "next/image";
-import { useActionState, useEffect, useState } from "react";
-import { FiUpload } from "react-icons/fi";
+import { startTransition, useActionState, useState } from "react";
 import { createPost } from "@/app/actions";
+import { MediaDropzone } from "@/components/MediaDropzone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export function PostForm() {
   const [state, formAction, pending] = useActionState(createPost, {});
-  const [preview, setPreview] = useState<string | null>(null);
+  const [video, setVideo] = useState<File | null>(null);
+  const [audio, setAudio] = useState<File | null>(null);
+  const [cover, setCover] = useState<File | null>(null);
+  const [coverIsAuto, setCoverIsAuto] = useState(true);
 
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
+  const chooseVideo = async (file: File | null) => {
+    setVideo(file);
+    if (coverIsAuto) {
+      setCover(file && (await captureFrame(file)));
+    }
+  };
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form
+      onSubmit={(e) => {
+        // Submitting by hand keeps the fields filled if publishing fails;
+        // React resets forms that use the `action` prop after every submit.
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        for (const [field, file] of Object.entries({
+          video,
+          audio,
+          image: cover,
+        })) {
+          if (file) data.set(field, file);
+        }
+        startTransition(() => formAction(data));
+      }}
+      className="space-y-10"
+    >
       {state.error && (
         <p
           role="alert"
-          className="rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+          className="bg-destructive/15 p-3 text-sm text-destructive"
         >
           {state.error}
         </p>
       )}
 
-      <div className="space-y-2">
-        <span className="text-sm font-medium">Image</span>
-        <label className="block cursor-pointer rounded-lg border-2 border-dashed p-6 transition-colors hover:border-ring">
-          <input
-            name="image"
-            type="file"
-            accept="image/png, image/jpeg, image/gif"
-            className="sr-only"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              setPreview(file ? URL.createObjectURL(file) : null);
-            }}
-          />
-          {preview ? (
-            <span className="group relative block aspect-video">
-              <Image
-                src={preview}
-                alt="Preview"
-                fill
-                unoptimized
-                className="rounded-lg object-cover"
-              />
-              <span className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
-                Click to change image
-              </span>
-            </span>
-          ) : (
-            <span className="flex flex-col items-center text-muted-foreground">
-              <FiUpload aria-hidden className="mb-2 size-8" />
-              <span className="text-sm font-medium">
-                Click to upload an image
-              </span>
-              <span className="mt-1 text-xs">PNG, JPG or GIF (max. 10 MB)</span>
-            </span>
-          )}
-        </label>
-      </div>
+      <MediaDropzone
+        kind="video"
+        label="Video"
+        hint="MP4, WebM or MOV, shown in a 4:3 frame. Up to 100 MB."
+        file={video}
+        onChange={chooseVideo}
+      />
+
+      <MediaDropzone
+        kind="audio"
+        label="Audio"
+        hint="MP3, M4A, WAV or OGG. Plays with the video in place of its own sound."
+        file={audio}
+        onChange={setAudio}
+      />
 
       <div className="space-y-2">
         <label htmlFor="title" className="text-sm font-medium">
@@ -74,21 +71,23 @@ export function PostForm() {
         <Input
           id="title"
           name="title"
-          placeholder="Enter post title"
+          placeholder="Untitled"
           required
+          className="h-auto rounded-none border-0 border-b px-0 py-2 font-display text-4xl focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
         />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="content" className="text-sm font-medium">
-          Content
+          Text
         </label>
         <Textarea
           id="content"
           name="content"
-          placeholder="Write your post content here…"
+          placeholder="Write something…"
           rows={12}
           required
+          className="rounded-none bg-card text-base"
         />
         <p className="text-xs text-muted-foreground">
           Supports ## headings, **bold**, *italic*, `code`, ```fenced code```,
@@ -96,9 +95,58 @@ export function PostForm() {
         </p>
       </div>
 
-      <Button type="submit" className="w-full" disabled={pending}>
-        {pending ? "Publishing…" : "Create post"}
+      <MediaDropzone
+        kind="image"
+        label="Cover"
+        hint="Taken from the video automatically. Shown before it loads."
+        file={cover}
+        onChange={(file) => {
+          setCover(file);
+          setCoverIsAuto(false);
+        }}
+        className="max-w-xs"
+      />
+
+      <Button
+        type="submit"
+        disabled={pending}
+        className="h-12 w-full rounded-none text-base"
+      >
+        {pending ? "Uploading and publishing…" : "Publish"}
       </Button>
     </form>
   );
+}
+
+/** A still from about a second in, to use as the video's cover. */
+async function captureFrame(file: File): Promise<File | null> {
+  const url = URL.createObjectURL(file);
+  const video = document.createElement("video");
+  video.muted = true;
+  video.playsInline = true;
+  video.src = url;
+
+  try {
+    await new Promise((resolve, reject) => {
+      video.onloadeddata = resolve;
+      video.onerror = reject;
+    });
+    video.currentTime = Math.min(1, video.duration / 2);
+    await new Promise((resolve) => (video.onseeked = resolve));
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d")?.drawImage(video, 0, 0);
+
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/jpeg", 0.85),
+    );
+    const name = `${file.name.replace(/\.[^.]+$/, "")}-cover.jpg`;
+    return blob && new File([blob], name, { type: "image/jpeg" });
+  } catch {
+    return null;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }

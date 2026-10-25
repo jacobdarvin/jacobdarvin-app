@@ -1,29 +1,45 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { logout } from "@/app/actions";
 import { PostForm } from "@/components/PostForm";
-import { Button } from "@/components/ui/button";
+import { dmSerif } from "../fonts";
 
 export const metadata: Metadata = {
-  title: "New post",
+  title: "New entry",
   robots: { index: false },
 };
 
 export default function NewPostPage() {
   return (
-    <main className="flex min-h-dvh items-center justify-center px-4 py-16">
-      <div className="w-full max-w-2xl space-y-6 rounded-xl border bg-card p-8">
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Create a new post
-          </h1>
-          <form action={logout}>
-            <Button type="submit" variant="outline">
-              Log out
-            </Button>
-          </form>
-        </div>
+    <div
+      className={`blog ${dmSerif.variable} min-h-svh bg-background text-foreground`}
+    >
+      <header className="flex items-baseline justify-between gap-6 px-4 py-5 md:px-8">
+        <Link
+          href="/blog"
+          className="font-display text-2xl transition-opacity hover:opacity-70"
+        >
+          log
+        </Link>
+        <form action={logout}>
+          <button
+            type="submit"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Log out
+          </button>
+        </form>
+      </header>
+
+      <main className="mx-auto max-w-3xl px-4 pt-8 pb-24">
+        <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95]">
+          New entry
+        </h1>
+        <p className="mt-3 mb-12 text-muted-foreground">
+          A video, its sound, a title and a few words.
+        </p>
         <PostForm />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

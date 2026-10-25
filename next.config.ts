@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      // Blog post cover images are uploaded through a Server Action.
-      bodySizeLimit: "10mb",
+      // Post videos, audio and cover images are uploaded through a Server Action.
+      bodySizeLimit: "100mb",
     },
   },
 };

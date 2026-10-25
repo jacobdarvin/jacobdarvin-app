@@ -21,12 +21,12 @@ const links = [
     icon: FaEnvelope,
     label: "jacobisdarvin@gmail.com",
   },
-  { href: "/blog", icon: BsBoxFill, label: "Jacob's Blog" },
+  { href: "/blog", icon: BsBoxFill, label: "log" },
 ];
 
 export default function Home() {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 px-6 py-16">
+    <main className="mx-auto flex min-h-dvh max-w-2xl flex-col justify-center gap-6 px-6 py-16">
       <header className="flex items-center gap-4">
         <Image
           src="/moi_1.jpeg"

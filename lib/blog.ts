@@ -2,7 +2,11 @@ export type Post = {
   id: string;
   title: string;
   content: string;
+  /** Cover still, used as the video's poster. */
   image: string | null;
+  video?: string | null;
+  /** Played alongside the video in place of its own sound. */
+  audio?: string | null;
   created_at: {
     _seconds: number;
     _nanoseconds: number;
