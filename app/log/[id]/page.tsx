@@ -3,15 +3,9 @@ import { notFound } from "next/navigation";
 import { IoMusicalNotes } from "react-icons/io5";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import {
-  excerpt,
-  formatDate,
-  getPost,
-  getPosts,
-  readTime,
-  toISODate,
-} from "@/lib/log";
+import { excerpt, formatDate, readTime, toISODate } from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
+import { getPost, getPosts } from "@/lib/posts";
 
 export async function generateMetadata({
   params,

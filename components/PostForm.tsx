@@ -1,18 +1,67 @@
 "use client";
 
 import { startTransition, useActionState, useState } from "react";
-import { createPost } from "@/app/actions";
+import {
+  createPost,
+  prepareUploads,
+  type FormState,
+  type MediaField,
+} from "@/app/api/posts";
 import { MediaDropzone } from "@/components/MediaDropzone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export function PostForm() {
-  const [state, formAction, pending] = useActionState(createPost, {});
   const [video, setVideo] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
   const [cover, setCover] = useState<File | null>(null);
   const [coverIsAuto, setCoverIsAuto] = useState(true);
+
+  // Files go straight from the browser to Storage; the post only gets their paths.
+  const [state, formAction, pending] = useActionState(
+    async (prev: FormState, data: FormData): Promise<FormState> => {
+      const files = Object.entries({ video, audio, image: cover }).filter(
+        (entry): entry is [MediaField, File] => entry[1] !== null,
+      );
+
+      if (files.length > 0) {
+        const prepared = await prepareUploads(
+          files.map(([field, file]) => ({
+            field,
+            name: file.name,
+            type: file.type,
+          })),
+        );
+        if ("error" in prepared) {
+          return prepared;
+        }
+
+        const error = await Promise.all(
+          prepared.uploads.map(async ({ field, path, url }, i) => {
+            const file = files[i][1];
+            try {
+              const res = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": file.type },
+                body: file,
+              });
+              if (!res.ok) return `Uploading the ${field} failed (${res.status}).`;
+            } catch {
+              return `Uploading the ${field} failed. Check your connection and the bucket's CORS settings.`;
+            }
+            data.set(field, path);
+          }),
+        ).then((results) => results.find(Boolean));
+        if (error) {
+          return { error };
+        }
+      }
+
+      return createPost(prev, data);
+    },
+    {},
+  );
 
   const chooseVideo = async (file: File | null) => {
     setVideo(file);
@@ -28,13 +77,6 @@ export function PostForm() {
         // React resets forms that use the `action` prop after every submit.
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        for (const [field, file] of Object.entries({
-          video,
-          audio,
-          image: cover,
-        })) {
-          if (file) data.set(field, file);
-        }
         startTransition(() => formAction(data));
       }}
       className="space-y-10"

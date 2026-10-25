@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { logout } from "@/app/actions";
+import { logout } from "@/app/api/auth";
 import { PostForm } from "@/components/PostForm";
 
 export const metadata: Metadata = {

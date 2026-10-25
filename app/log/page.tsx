@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { formatDate, getPosts, readTime, toISODate } from "@/lib/log";
+import { formatDate, readTime, toISODate } from "@/lib/log";
+import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "Log",

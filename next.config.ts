@@ -7,12 +7,6 @@ const nextConfig: NextConfig = {
       new URL("https://storage.googleapis.com/**"),
     ],
   },
-  experimental: {
-    serverActions: {
-      // Post videos, audio and cover images are uploaded through a Server Action.
-      bodySizeLimit: "100mb",
-    },
-  },
 };
 
 export default nextConfig;

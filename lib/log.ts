@@ -10,56 +10,12 @@ export type Post = {
   /** The song in the audio, credited on the post page. */
   song_title?: string | null;
   song_url?: string | null;
-  created_at: {
-    _seconds: number;
-    _nanoseconds: number;
-  };
+  /** Milliseconds since the epoch. */
+  created_at: number;
 };
 
-const REVALIDATE_SECONDS = 3600;
-
-export function apiUrl(path: string) {
-  const base = process.env.NEXT_PUBLIC_API_NEST_URL;
-  if (!base) {
-    throw new Error("NEXT_PUBLIC_API_NEST_URL is not set");
-  }
-  return `${base}${path}`;
-}
-
-/** All posts, newest first. */
-export async function getPosts(): Promise<Post[]> {
-  const res = await fetch(apiUrl("/blog/posts"), {
-    next: { revalidate: REVALIDATE_SECONDS },
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch posts: ${res.status}`);
-  }
-
-  const posts: Post[] = await res.json();
-  return posts.toSorted(
-    (a, b) => b.created_at._seconds - a.created_at._seconds,
-  );
-}
-
-/** A single post, or `null` if it doesn't exist. */
-export async function getPost(id: string): Promise<Post | null> {
-  const res = await fetch(apiUrl(`/blog/posts/${encodeURIComponent(id)}`), {
-    next: { revalidate: REVALIDATE_SECONDS },
-  });
-  if (res.status === 404) {
-    return null;
-  }
-  if (!res.ok) {
-    throw new Error(`Failed to fetch post ${id}: ${res.status}`);
-  }
-
-  // The API answers unknown ids with 200 and an empty body.
-  const body = await res.text();
-  return body ? JSON.parse(body) : null;
-}
-
 export function formatDate(timestamp: Post["created_at"]) {
-  return new Date(timestamp._seconds * 1000).toLocaleDateString("en-US", {
+  return new Date(timestamp).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -67,7 +23,7 @@ export function formatDate(timestamp: Post["created_at"]) {
 }
 
 export function toISODate(timestamp: Post["created_at"]) {
-  return new Date(timestamp._seconds * 1000).toISOString();
+  return new Date(timestamp).toISOString();
 }
 
 export function readTime(content: string) {
