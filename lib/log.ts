@@ -29,11 +29,11 @@ export function toISODate(timestamp: Post["created_at"]) {
 /** Plain-text summary of a post's markdown, for cards and meta descriptions. */
 export function excerpt(content: string, maxLength = 160) {
   const text = content
-    .replace(/```[\s\S]*?```/g, "")
     .replace(/<\/?song>/g, "")
     .replace(/^#+\s+/gm, "")
+    .replace(/^[-*] +/gm, "")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[*`]/g, "")
+    .replace(/\*/g, "")
     .replace(/\s+/g, " ")
     .trim();
 

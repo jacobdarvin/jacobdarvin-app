@@ -78,31 +78,6 @@
   }
 }
 
-/* Log post body (see lib/markdown.ts) */
-
-.prose :where(:not(pre) > code) {
-  @apply rounded bg-muted px-1 py-0.5 font-normal;
-}
-
-.prose :where(:not(pre) > code)::before,
-.prose :where(:not(pre) > code)::after {
-  content: none;
-}
-
-.prose pre.shiki {
-  @apply border text-sm;
-  scrollbar-width: thin;
-}
-
-/* Shiki renders both themes; swap to the dark one with the OS. */
-@media (prefers-color-scheme: dark) {
-  .shiki,
-  .shiki span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-  }
-}
-
 /* The log is always dark, whatever the OS theme. */
 
 .log {
@@ -119,10 +94,4 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-}
-
-.log .shiki,
-.log .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
 }

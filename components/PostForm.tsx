@@ -184,8 +184,9 @@ export function PostForm({ post }: { post?: Post }) {
           className="rounded-none bg-card text-base"
         />
         <p className="text-xs text-muted-foreground">
-          Supports ## headings, **bold**, *italic*, `code`, ```fenced code```,
-          [links](https://…) and &lt;song&gt;Artist - Title&lt;/song&gt;.
+          Supports ## headings, ### subheadings, - bullets, **bold**,
+          *italic*, [links](https://…) and &lt;song&gt;Artist -
+          Title&lt;/song&gt;.
         </p>
       </div>
 

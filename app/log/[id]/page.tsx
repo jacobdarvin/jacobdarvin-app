@@ -50,7 +50,7 @@ export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
     notFound();
   }
 
-  const html = await renderMarkdown(post.content);
+  const html = renderMarkdown(post.content);
   const others = posts.filter((p) => p.id !== post.id).slice(0, 3);
 
   return (

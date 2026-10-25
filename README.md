@@ -33,6 +33,6 @@ site's origins (and `http://localhost:3000` for development).
 - `lib/log.ts` — the `Post` type and helpers shared with client components.
 - `lib/posts.ts`, `lib/auth.ts`, `lib/firebase-admin.ts` — server-only Firestore
   reads, author checks and the Firebase Admin setup.
-- `lib/markdown.ts` — renders the small markdown dialect used in posts (Shiki for code).
+- `lib/markdown.ts` — renders the small markdown dialect used in posts (headings, bullets, emphasis, links).
 
 The theme follows the visitor's OS light/dark preference.

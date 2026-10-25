@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 import type { Post } from "@/lib/log";
 
 type VideoFrameProps = {
@@ -140,13 +141,19 @@ export function VideoFrame({
         <button
           type="button"
           data-sound-toggle
+          aria-label={soundOn ? "Mute" : "Unmute"}
           onClick={() => {
             stopWaitingRef.current();
             setSound(!soundOn);
           }}
-          className="absolute top-4 right-4 rounded-full bg-black/60 px-4 py-2 text-sm text-white backdrop-blur-sm transition-colors hover:bg-black/80"
+          // Above any overlay laid on the frame, like the post page's credits.
+          className="absolute right-4 bottom-4 z-10 grid size-10 place-items-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-colors hover:bg-black/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
-          {soundOn ? "Sound off" : "Sound on"}
+          {soundOn ? (
+            <IoVolumeHigh aria-hidden className="size-5" />
+          ) : (
+            <IoVolumeMute aria-hidden className="size-5" />
+          )}
         </button>
       )}
     </div>

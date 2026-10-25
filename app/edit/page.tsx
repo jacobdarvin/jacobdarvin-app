@@ -27,7 +27,7 @@ export default async function EditPostsPage() {
               <li key={post.id}>
                 <Link
                   href={`/edit/${post.id}`}
-                  className="group flex items-center gap-4 py-4 transition-colors hover:underline md:gap-6"
+                  className="group flex items-center gap-4 py-4 transition-colors md:gap-6"
                 >
                   <div className="relative aspect-4/3 w-24 shrink-0 overflow-hidden bg-card md:w-32">
                     {post.image && (
