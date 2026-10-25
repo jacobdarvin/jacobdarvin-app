@@ -6,7 +6,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Post } from "@/lib/log";
 
 type VideoFrameProps = {
-  post: Pick<Post, "title" | "image" | "video" | "audio">;
+  post: Pick<Post, "title" | "image" | "video">;
+  /** Played in place of the video's own sound. */
+  audio?: string | null;
   /** Makes the whole frame a link, e.g. to the post itself. */
   href?: string;
   /** Shown over the bottom of the frame. */
@@ -14,12 +16,12 @@ type VideoFrameProps = {
 };
 
 /**
- * A 4:3 frame that autoplays the post's video with its sound: the separate
- * audio track if there is one, otherwise the video's own. Browsers block
- * sound until the visitor interacts with the page, so it falls back to
- * playing muted and turns the sound on at the first click or key press.
+ * A 4:3 frame that autoplays the post's video with its sound: the `audio`
+ * track if one is given, otherwise the video's own. Browsers block sound
+ * until the visitor interacts with the page, so it falls back to playing
+ * muted and turns the sound on at the first click or key press.
  */
-export function VideoFrame({ post, href, children }: VideoFrameProps) {
+export function VideoFrame({ post, audio, href, children }: VideoFrameProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const stopWaitingRef = useRef(() => {});
@@ -100,10 +102,10 @@ export function VideoFrame({ post, href, children }: VideoFrameProps) {
           />
         )
       )}
-      {post.audio && (
+      {audio && (
         <audio
           ref={audioRef}
-          src={post.audio}
+          src={audio}
           loop
           onPlay={syncSound}
           onPause={syncSound}
@@ -124,7 +126,7 @@ export function VideoFrame({ post, href, children }: VideoFrameProps) {
         />
       )}
 
-      {(post.video || post.audio) && (
+      {(post.video || audio) && (
         <button
           type="button"
           data-sound-toggle

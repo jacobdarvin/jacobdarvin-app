@@ -5,8 +5,11 @@ export type Post = {
   /** Cover still, used as the video's poster. */
   image: string | null;
   video?: string | null;
-  /** Played alongside the video in place of its own sound. */
+  /** Played alongside the video in place of its own sound on the post page. */
   audio?: string | null;
+  /** The song in the audio, credited on the post page. */
+  song_title?: string | null;
+  song_url?: string | null;
   created_at: {
     _seconds: number;
     _nanoseconds: number;

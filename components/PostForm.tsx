@@ -59,10 +59,36 @@ export function PostForm() {
       <MediaDropzone
         kind="audio"
         label="Audio"
-        hint="MP3, M4A, WAV or OGG. Plays with the video in place of its own sound."
+        hint="MP3, M4A, WAV or OGG. Plays with the video on the post page; the log's featured entry keeps the video's own sound."
         file={audio}
         onChange={setAudio}
       />
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div className="space-y-2">
+          <label htmlFor="song_title" className="text-sm font-medium">
+            Song
+          </label>
+          <Input
+            id="song_title"
+            name="song_title"
+            placeholder="Artist - Title"
+            className="rounded-none"
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="song_url" className="text-sm font-medium">
+            Song link
+          </label>
+          <Input
+            id="song_url"
+            name="song_url"
+            type="url"
+            placeholder="https://…"
+            className="rounded-none"
+          />
+        </div>
+      </div>
 
       <div className="space-y-2">
         <label htmlFor="title" className="text-sm font-medium">

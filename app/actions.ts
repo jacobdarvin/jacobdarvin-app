@@ -60,8 +60,17 @@ export async function createPost(
   const title = String(formData.get("title") ?? "").trim();
   const content = String(formData.get("content") ?? "").trim();
 
+  const songTitle = String(formData.get("song_title") ?? "").trim();
+  const songUrl = String(formData.get("song_url") ?? "").trim();
+
   if (!title || !content) {
     return { error: "Title and content are required." };
+  }
+  if (songUrl && !/^https?:\/\//.test(songUrl)) {
+    return { error: "The song link must start with http:// or https://." };
+  }
+  if (songUrl && !songTitle) {
+    return { error: "Add the song's title to go with its link." };
   }
 
   const authorization = { Authorization: `Bearer ${token}` };
@@ -91,7 +100,13 @@ export async function createPost(
   const res = await fetch(apiUrl("/blog/posts"), {
     method: "POST",
     headers: { ...authorization, "Content-Type": "application/json" },
-    body: JSON.stringify({ title, content, ...media }),
+    body: JSON.stringify({
+      title,
+      content,
+      ...media,
+      song_title: songTitle || null,
+      song_url: songUrl || null,
+    }),
   });
   if (!res.ok) {
     return { error: errorMessage("Couldn't publish the post", res.status) };

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { IoMusicalNotes } from "react-icons/io5";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
 import {
@@ -63,7 +64,7 @@ export default async function LogPostPage({
     <>
       <article className="px-4 md:px-8">
         <div className="mx-auto w-full max-w-[calc((100svh-6rem)*4/3)]">
-          <VideoFrame post={post} />
+          <VideoFrame post={post} audio={post.audio} />
         </div>
 
         <div className="mx-auto max-w-[65ch] pt-16">
@@ -77,6 +78,23 @@ export default async function LogPostPage({
             {" · "}
             {readTime(post.content)}
           </p>
+          {post.song_title && (
+            <p className="mt-2 flex items-center gap-2 text-muted-foreground">
+              <IoMusicalNotes aria-label="Song" className="size-4 shrink-0" />
+              {post.song_url && /^https?:\/\//.test(post.song_url) ? (
+                <a
+                  href={post.song_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground underline underline-offset-4 hover:text-muted-foreground"
+                >
+                  {post.song_title}
+                </a>
+              ) : (
+                <span className="text-foreground">{post.song_title}</span>
+              )}
+            </p>
+          )}
           <div
             className="prose prose-lg mt-10 max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal"
             dangerouslySetInnerHTML={{ __html: html }}
