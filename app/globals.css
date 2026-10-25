@@ -4,7 +4,6 @@
 @theme inline {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-young-serif);
-  --font-display: var(--font-dm-serif);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -18,6 +17,16 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  --animate-glitch: glitch 0.4s steps(1, end) infinite;
+
+  @keyframes glitch {
+    0%, 100% { box-shadow: none; outline: 0 solid transparent; }
+    20% { box-shadow: -1px 0 0 var(--foreground); outline: 1px solid var(--background); outline-offset: -3px; }
+    40% { box-shadow: 1px 0 0 var(--foreground); outline: 1px solid var(--background); outline-offset: -2px; }
+    60% { box-shadow: none; text-shadow: none; outline: 0 solid transparent; }
+    80% { box-shadow: 0 1px 0 var(--foreground); outline: 1px solid var(--background); outline-offset: -4px; }
+  }
 }
 
 /* The site follows the visitor's OS theme; `dark:` utilities do the same. */

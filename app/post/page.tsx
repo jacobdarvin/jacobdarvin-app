@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { logout } from "@/app/actions";
 import { PostForm } from "@/components/PostForm";
-import { dmSerif } from "../fonts";
 
 export const metadata: Metadata = {
   title: "New entry",
@@ -12,12 +11,12 @@ export const metadata: Metadata = {
 export default function NewPostPage() {
   return (
     <div
-      className={`blog ${dmSerif.variable} min-h-svh bg-background text-foreground`}
+      className={`blog min-h-svh bg-background text-foreground`}
     >
       <header className="flex items-baseline justify-between gap-6 px-4 py-5 md:px-8">
         <Link
           href="/blog"
-          className="font-display text-2xl transition-opacity hover:opacity-70"
+          className="font-serif text-2xl transition-opacity hover:opacity-70"
         >
           log
         </Link>
@@ -32,7 +31,7 @@ export default function NewPostPage() {
       </header>
 
       <main className="mx-auto max-w-3xl px-4 pt-8 pb-24">
-        <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95]">
+        <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95]">
           New entry
         </h1>
         <p className="mt-3 mb-12 text-muted-foreground">

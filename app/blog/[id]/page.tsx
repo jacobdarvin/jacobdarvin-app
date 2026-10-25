@@ -67,7 +67,7 @@ export default async function BlogPostPage({
         </div>
 
         <div className="mx-auto max-w-[65ch] pt-16">
-          <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
+          <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
             {post.title}
           </h1>
           <p className="mt-4 text-muted-foreground">
@@ -78,7 +78,7 @@ export default async function BlogPostPage({
             {readTime(post.content)}
           </p>
           <div
-            className="prose prose-lg mt-10 max-w-none prose-invert prose-headings:font-display prose-headings:font-normal"
+            className="prose prose-lg mt-10 max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         </div>

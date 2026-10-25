@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { BsBoxFill } from "react-icons/bs";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
-import { IoIosDocument } from "react-icons/io";
+import { IoIosDocument, IoMdFilm } from "react-icons/io";
 import { SocialLink } from "@/components/SocialLink";
 
 const links = [
@@ -21,7 +20,7 @@ const links = [
     icon: FaEnvelope,
     label: "jacobisdarvin@gmail.com",
   },
-  { href: "/blog", icon: BsBoxFill, label: "log" },
+  { href: "/blog", icon: IoMdFilm, label: "log", inverted: true },
 ];
 
 export default function Home() {
@@ -45,9 +44,9 @@ export default function Home() {
       </header>
 
       <ul className="flex flex-wrap gap-2">
-        {links.map(({ href, icon, label }) => (
+        {links.map(({ href, icon, label, inverted }) => (
           <li key={href}>
-            <SocialLink href={href} icon={icon}>
+            <SocialLink href={href} icon={icon} inverted={inverted}>
               {label}
             </SocialLink>
           </li>

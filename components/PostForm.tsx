@@ -73,7 +73,7 @@ export function PostForm() {
           name="title"
           placeholder="Untitled"
           required
-          className="h-auto rounded-none border-0 border-b px-0 py-2 font-display text-4xl focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
+          className="h-auto rounded-none border-0 border-b px-0 py-2 font-serif text-4xl focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
         />
       </div>
 

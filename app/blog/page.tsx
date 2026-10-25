@@ -20,7 +20,7 @@ export default async function BlogPage() {
         <div className={frame}>
           {latest ? (
             <VideoFrame post={latest} href={`/blog/${latest.id}`}>
-              <h1 className="font-display text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em]">
+              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em]">
                 {latest.title}
               </h1>
               <p className="mt-3 text-sm text-white/75">
@@ -33,8 +33,8 @@ export default async function BlogPage() {
             </VideoFrame>
           ) : (
             <div className="flex aspect-4/3 items-center justify-center bg-card">
-              <h1 className="font-display text-[clamp(2.25rem,6vw,5rem)]">
-                First entry soon.
+              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)]">
+                Test
               </h1>
             </div>
           )}
