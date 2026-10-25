@@ -1,11 +1,5 @@
-import React from "react";
-
-export default function layout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function BlogLayout({ children }: LayoutProps<"/blog">) {
   return (
-    <div className="min-h-screen bg-neutral-950 text-white py-8 md:py-16">
-      {children}
-    </div>
+    <div className="mx-auto max-w-4xl px-4 py-12 md:py-20">{children}</div>
   );
 }

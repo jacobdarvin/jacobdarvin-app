@@ -1,56 +1,30 @@
-import React from "react";
-import { ChevronLeft } from "lucide-react";
-import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 
-export default function BlogIdLoading() {
+const lineWidths = [
+  "w-full",
+  "w-full",
+  "w-11/12",
+  "w-full",
+  "w-5/6",
+  "w-full",
+  "w-4/5",
+  "w-3/4",
+];
+
+export default function BlogPostLoading() {
   return (
     <>
-      <div className="container mx-auto px-4 max-w-4xl">
-        <Link
-          href="/blog"
-          className="text-white/80 hover:text-white transition-colors flex items-center mb-10"
-        >
-          <ChevronLeft className="w-4 h-4 mr-1" />
-          Back to blog
-        </Link>
+      <BackLink href="/blog">Back to blog</BackLink>
 
-        <article>
-          <header className="mb-8">
-            {/* Title placeholder */}
-            <div className="h-12 md:h-16 bg-neutral-800 rounded-lg animate-pulse mb-4 max-w-2xl"></div>
-
-            {/* Date and read time placeholder */}
-            <div className="flex items-center gap-2 mb-6">
-              <div className="h-4 w-32 bg-neutral-800 rounded-full animate-pulse"></div>
-              <div className="h-4 w-4 bg-neutral-800 rounded-full animate-pulse"></div>
-              <div className="h-4 w-24 bg-neutral-800 rounded-full animate-pulse"></div>
-            </div>
-
-            {/* Feature image placeholder */}
-            <div className="w-full h-64 md:h-96 bg-neutral-800 rounded-xl animate-pulse mb-8"></div>
-          </header>
-
-          {/* Content placeholders */}
-          <div className="space-y-6">
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-11/12"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-5/6"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-4/5"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-full"></div>
-            <div className="h-4 bg-neutral-800 rounded-full animate-pulse w-3/4"></div>
-          </div>
-
-          {/* Footer placeholder */}
-          <div className="mt-12 pt-8 border-t border-neutral-800">
-            <div className="h-6 w-48 bg-neutral-800 rounded-full animate-pulse mb-3"></div>
-            <div className="h-4 w-80 bg-neutral-800 rounded-full animate-pulse mb-4"></div>
-            <div className="h-10 w-28 bg-neutral-800 rounded-full animate-pulse"></div>
-          </div>
-        </article>
+      <div aria-busy="true" aria-label="Loading post" className="animate-pulse">
+        <div className="mb-4 h-12 max-w-2xl rounded-lg bg-muted md:h-16" />
+        <div className="mb-8 h-4 w-48 rounded-full bg-muted" />
+        <div className="mb-8 h-64 w-full rounded-xl bg-muted md:h-96" />
+        <div className="space-y-6">
+          {lineWidths.map((width, i) => (
+            <div key={i} className={`h-4 rounded-full bg-muted ${width}`} />
+          ))}
+        </div>
       </div>
     </>
   );

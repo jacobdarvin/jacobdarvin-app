@@ -1,115 +1,72 @@
-import React from "react";
-import Post from "../components/Post";
-import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
-import { Young_Serif } from "next/font/google";
-import { Post as PostType } from "@/types/post";
+import type { Metadata } from "next";
+import { BackLink } from "@/components/BackLink";
+import { BlogFooter } from "@/components/BlogFooter";
+import { PostCard } from "@/components/PostCard";
+import { getPosts } from "@/lib/blog";
 
-const youngSerif = Young_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Que se passe-t-il dans ma vie ?",
+};
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-async function getPosts() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/blog`, {
-      method: "GET",
-      next: {
-        revalidate: 3600,
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data: ${res.statusText}`);
-    }
-
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-  }
-}
+const sectionLabel =
+  "mb-4 text-sm font-medium tracking-wider text-muted-foreground uppercase";
 
 export default async function BlogPage() {
-  const posts: PostType[] = await getPosts();
-
-  const latestPost = posts.sort(
-    (a, b) => b.created_at._seconds - a.created_at._seconds
-  )[0];
-  const regularPosts = posts.slice(1);
+  const [latest, ...others] = await getPosts();
 
   return (
     <>
-      <div className="container mx-auto px-4 max-w-5xl">
-        <Link
-          href="/"
-          className="text-white/80 hover:text-white transition-colors flex items-center mb-10"
-        >
-          <ChevronLeft className="w-4 h-4 mr-1" />
-          Back to home
-        </Link>
+      <BackLink href="/">Back to home</BackLink>
 
-        <header className="mb-12">
-          <h1 className={`${youngSerif.className} text-4xl md:text-5xl mb-3 `}>
-            Jacob&apos;s Blog
-          </h1>
-          <p className="text-white/70 text-lg">
-            Que se passe-t-il dans ma vie ?
-          </p>
-        </header>
+      <header className="mb-12">
+        <h1 className="mb-3 font-serif text-4xl md:text-5xl">
+          Jacob&apos;s Blog
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          Que se passe-t-il dans ma vie ?
+        </p>
+      </header>
 
-        {/* Latest Post */}
-        <div className="mb-16">
-          <div className="text-sm uppercase tracking-wider text-white/60 mb-4 font-medium">
-            Latest Entry
-          </div>
-          <Post post={latestPost} isLatest={true} />
-        </div>
+      {latest ? (
+        <>
+          <section className="mb-16">
+            <h2 className={sectionLabel}>Latest entry</h2>
+            <PostCard post={latest} featured />
+          </section>
 
-        {/* Post Grid */}
-        <div className="text-sm uppercase tracking-wider text-white/60 mb-4 font-medium">
-          Other Entries
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {regularPosts.length > 0 ? (
-            regularPosts.map((post) => (
-              <Post
-                key={post.id || `post-${post.created_at._seconds}`}
-                post={post}
-              />
-            ))
-          ) : (
-            <span>Nothing yet.</span>
+          {others.length > 0 && (
+            <section>
+              <h2 className={sectionLabel}>Other entries</h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {others.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </section>
           )}
-        </div>
+        </>
+      ) : (
+        <p className="text-muted-foreground">
+          Nothing here yet. Check back soon.
+        </p>
+      )}
 
-        <div className="mt-12 pt-8 border-t border-neutral-800">
-          <h1 className={`${youngSerif.className} text-xl md:text-2xl mr-2`}>
-            Jacob&apos;s Blog
-          </h1>
-          <p className="text-white/70 mt-2">
-            Thanks for checking this out! Please don&apos;t take anything too
-            seriously 😄
-          </p>
-          <p className="text-white/70 mt-2">
-            Want to get in touch? Email me at{" "}
-            <a
-              href="mailto:jacobisdarvin@gmail.com"
-              className="underline text-white hover:text-white/80 transition-colors"
-            >
-              jacobisdarvin@gmail.com
-            </a>
-          </p>
-          <Link
-            href="/"
-            className="inline-block mt-4 bg-neutral-900 hover:bg-neutral-900/50 transition-colors py-2 px-5 rounded-full border border-neutral-800"
+      <BlogFooter href="/" cta="Back to jacobdarvin.com">
+        <p>
+          Thanks for checking this out! Please don&apos;t take anything too
+          seriously 😄
+        </p>
+        <p>
+          Want to get in touch? Email me at{" "}
+          <a
+            href="mailto:jacobisdarvin@gmail.com"
+            className="text-foreground underline underline-offset-4 hover:text-muted-foreground"
           >
-            Back to jacobdarvin.com
-          </Link>
-        </div>
-      </div>
+            jacobisdarvin@gmail.com
+          </a>
+        </p>
+      </BlogFooter>
     </>
   );
 }

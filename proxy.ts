@@ -1,20 +1,20 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
-    const token = request.cookies.get('auth-token')?.value
+  const isSignedIn = request.cookies.has("auth-token");
+  const { pathname } = request.nextUrl;
 
-    if (request.nextUrl.pathname.startsWith('/login') && token) {
-        return NextResponse.redirect(new URL('/', request.url))
-    }
+  if (pathname.startsWith("/login") && isSignedIn) {
+    return NextResponse.redirect(new URL("/post", request.url));
+  }
 
-    if (request.nextUrl.pathname.startsWith('/post') && !token) {
-        return NextResponse.redirect(new URL('/', request.url))
-    }
+  if (pathname.startsWith("/post") && !isSignedIn) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
-    return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-    matcher: ['/login', '/post']
-}
+  matcher: ["/login", "/post"],
+};

@@ -1,47 +1,42 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { inter, youngSerif } from "./fonts";
 import "./globals.css";
 
-// Geist for sans-serif font
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
+const description = "Jacob Darvin is a Full Stack Engineer at Harmoney.";
 
 export const metadata: Metadata = {
-  title: "Jacob Darvin",
-  description: "👋 Jacob Darvin is a Full Stack Engineer @ Harmoney",
   metadataBase: new URL("https://jacobdarvin.com"),
+  title: {
+    default: "Jacob Darvin",
+    template: "%s · Jacob Darvin",
+  },
+  description,
   openGraph: {
     type: "website",
-    url: "https://jacobdarvin.com",
-    title: "Jacob Darvin",
-    description: "👋 Jacob Darvin is a Full Stack Engineer @ Harmoney",
+    url: "/",
     siteName: "Jacob Darvin",
+    title: "Jacob Darvin",
+    description,
     images: [
-      {
-        url: "/me.jpeg",
-        width: 886,
-        height: 886,
-        alt: "Jacob's Face",
-      },
+      { url: "/moi_1.jpeg", width: 1152, height: 1152, alt: "Jacob Darvin" },
     ],
+  },
+  twitter: {
+    card: "summary",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} antialiased`}
-        suppressHydrationWarning
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${inter.variable} ${youngSerif.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
