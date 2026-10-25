@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 import type { Post } from "@/lib/log";
+import { cn } from "@/lib/utils";
 
 type VideoFrameProps = {
   post: Pick<Post, "title" | "image" | "video">;
@@ -16,6 +17,8 @@ type VideoFrameProps = {
   autoSound?: boolean;
   /** Shown over the middle of the frame, left-aligned. */
   children?: React.ReactNode;
+  /** Overrides the frame's sizing, e.g. to drop the 4:3 shape on phones. */
+  className?: string;
 };
 
 /**
@@ -30,6 +33,7 @@ export function VideoFrame({
   href,
   autoSound,
   children,
+  className,
 }: VideoFrameProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -88,7 +92,12 @@ export function VideoFrame({
   }, [autoSound, setSound]);
 
   return (
-    <div className="relative aspect-4/3 w-full overflow-hidden bg-card">
+    <div
+      className={cn(
+        "relative aspect-4/3 w-full overflow-hidden bg-card rounded",
+        className,
+      )}
+    >
       {post.video ? (
         <video
           ref={videoRef}

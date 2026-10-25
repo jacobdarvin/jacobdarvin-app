@@ -8,6 +8,9 @@ import { excerpt, formatDate, toISODate } from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, getPosts } from "@/lib/posts";
 
+/** On phones the frame fills the screen under the header instead of being 4:3. */
+const phoneFrame = "max-md:aspect-auto max-md:h-[calc(100svh-6rem)]";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/log/[id]">): Promise<Metadata> {
@@ -57,7 +60,16 @@ export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
     <>
       <article className="px-4 md:px-8">
         <div className="mx-auto w-full max-w-[calc((100svh-6rem)*4/3)]">
-          <CreditRoll frame={<VideoFrame post={post} audio={post.audio} autoSound />}>
+          <CreditRoll
+            frame={
+              <VideoFrame
+                post={post}
+                audio={post.audio}
+                autoSound
+                className={phoneFrame}
+              />
+            }
+          >
             <div className="mx-auto max-w-[65ch]">
               <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
                 {post.title}
