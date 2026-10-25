@@ -30,7 +30,7 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       url: `/log/${id}`,
-      siteName: "Jacob's Log",
+      siteName: "jacob's log",
       title: post.title,
       description,
       publishedTime: toISODate(post.created_at),

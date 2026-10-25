@@ -94,7 +94,7 @@ export function VideoFrame({
   return (
     <div
       className={cn(
-        "relative aspect-4/3 w-full overflow-hidden bg-card rounded",
+        "relative aspect-4/3 w-full overflow-hidden bg-card rounded-xl",
         className,
       )}
     >
