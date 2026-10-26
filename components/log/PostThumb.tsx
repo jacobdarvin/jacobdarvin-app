@@ -3,19 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { formatDate, toISODate, type Post } from "@/lib/log";
+import { formatDate, hasContent, toISODate, type Post } from "@/lib/log";
 
-/** A post in the grid; its video previews silently on hover. */
+/**
+ * A post in the grid; its video previews silently on hover. Posts with no
+ * body aren't links, since there's nothing more to read than the title.
+ */
 export function PostThumb({ post }: { post: Post }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const previewProps = {
+    className: "group block",
+    onPointerEnter: () => videoRef.current?.play().catch(() => {}),
+    onPointerLeave: () => videoRef.current?.pause(),
+  };
 
-  return (
-    <Link
-      href={`/log/${post.id}`}
-      className="group block"
-      onPointerEnter={() => videoRef.current?.play().catch(() => {})}
-      onPointerLeave={() => videoRef.current?.pause()}
-    >
+  const thumb = (
+    <>
       <div className="relative aspect-4/3 overflow-hidden bg-card">
         {post.video ? (
           <video
@@ -48,6 +51,14 @@ export function PostThumb({ post }: { post: Post }) {
       >
         {formatDate(post.created_at)}
       </time>
+    </>
+  );
+
+  return hasContent(post) ? (
+    <Link href={`/log/${post.id}`} {...previewProps}>
+      {thumb}
     </Link>
+  ) : (
+    <div {...previewProps}>{thumb}</div>
   );
 }

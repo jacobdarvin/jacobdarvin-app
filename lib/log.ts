@@ -42,3 +42,8 @@ export function excerpt(content: string, maxLength = 160) {
   }
   return `${text.slice(0, maxLength).replace(/\s+\S*$/, "")}…`;
 }
+
+/** Whether a post has a body worth opening, beyond its title and media. */
+export function hasContent(post: Pick<Post, "content">) {
+  return excerpt(post.content).length > 0;
+}
