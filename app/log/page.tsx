@@ -24,7 +24,7 @@ export default async function LogPage() {
               post={latest}
               href={hasContent(latest) ? `/log/${latest.id}` : undefined}
             >
-              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em]">
+              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line">
                 {latest.title}
               </h1>
               <p className="mt-4 text-white/70">

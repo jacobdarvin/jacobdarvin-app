@@ -4,7 +4,7 @@ import { IoMusicalNotes } from "react-icons/io5";
 import { CreditRoll } from "@/components/log/CreditRoll";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { excerpt, formatDate, toISODate } from "@/lib/log";
+import { excerpt, flatTitle, formatDate, toISODate } from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, getPosts } from "@/lib/posts";
 
@@ -20,18 +20,19 @@ export async function generateMetadata({
     return {};
   }
 
+  const title = flatTitle(post.title);
   const description = excerpt(post.content);
-  const images = post.image ? [{ url: post.image, alt: post.title }] : [];
+  const images = post.image ? [{ url: post.image, alt: title }] : [];
 
   return {
-    title: post.title,
+    title,
     description,
     authors: [{ name: "Jacob Darvin" }],
     openGraph: {
       type: "article",
       url: `/log/${id}`,
       siteName: "jacob's log",
-      title: post.title,
+      title,
       description,
       publishedTime: toISODate(post.created_at),
       images,
@@ -39,7 +40,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: post.image ? "summary_large_image" : "summary",
-      title: post.title,
+      title,
       description,
       images,
     },
@@ -71,7 +72,7 @@ export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
             }
           >
             <div className="mx-auto max-w-[65ch]">
-              <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
+              <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line">
                 {post.title}
               </h1>
               <p className="mt-4 text-white/70">

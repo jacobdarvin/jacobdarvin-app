@@ -160,19 +160,24 @@ export function PostForm({ post }: { post?: Post }) {
         <label htmlFor="title" className="text-sm font-medium">
           Title
         </label>
-        <Input
+        {/* A textarea so the title can break over lines; it grows to fit. */}
+        <Textarea
           id="title"
           name="title"
           placeholder="Untitled"
           defaultValue={post?.title}
+          rows={1}
           required
-          className="h-auto rounded-none border-0 border-b px-0 py-2 font-serif text-4xl focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
+          className="field-sizing-content min-h-0 resize-none rounded-none border-0 border-b px-0 py-2 font-serif text-4xl leading-tight focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
         />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="content" className="text-sm font-medium">
-          Text
+          Text{" "}
+          <span className="font-normal text-muted-foreground">
+            (optional; without it the post can&apos;t be opened from the log)
+          </span>
         </label>
         <Textarea
           id="content"
@@ -180,7 +185,6 @@ export function PostForm({ post }: { post?: Post }) {
           placeholder="Write something…"
           defaultValue={post?.content}
           rows={12}
-          required
           className="rounded-none bg-card text-base"
         />
         <p className="text-xs text-muted-foreground">

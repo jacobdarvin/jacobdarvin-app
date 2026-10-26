@@ -44,7 +44,7 @@ export function PostThumb({ post }: { post: Post }) {
           )
         )}
       </div>
-      <h3 className="mt-4 font-serif text-2xl leading-tight">{post.title}</h3>
+      <h3 className="mt-4 font-serif text-2xl leading-tight whitespace-pre-line">{post.title}</h3>
       <time
         dateTime={toISODate(post.created_at)}
         className="mt-1 block text-sm text-muted-foreground"

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
-import type { Post } from "@/lib/log";
+import { flatTitle, type Post } from "@/lib/log";
 import { cn } from "@/lib/utils";
 
 type VideoFrameProps = {
@@ -141,7 +141,7 @@ export function VideoFrame({
       {href && (
         <Link
           href={href}
-          aria-label={post.title}
+          aria-label={flatTitle(post.title)}
           className="absolute inset-0 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
         />
       )}

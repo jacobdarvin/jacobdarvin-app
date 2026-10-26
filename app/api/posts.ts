@@ -5,6 +5,7 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { isSignedInAsAuthor } from "@/lib/auth";
 import { bucket, db } from "@/lib/firebase-admin";
+import { hasContent } from "@/lib/log";
 import { POSTS_TAG } from "@/lib/posts";
 
 export type FormState = { error?: string };
@@ -87,7 +88,7 @@ export async function createPost(
     });
 
   updateTag(POSTS_TAG);
-  redirect(`/log/${post.id}`);
+  redirect(postUrl(post.id, fields.content));
 }
 
 /**
@@ -126,18 +127,26 @@ export async function updatePost(
   }
 
   updateTag(POSTS_TAG);
-  redirect(`/log/${id}`);
+  redirect(postUrl(id, fields.content));
+}
+
+/** Where to land after saving: the post, or the log if it has no body to read. */
+function postUrl(id: string, content: string) {
+  return hasContent({ content }) ? `/log/${id}` : "/log";
 }
 
 /** The post's text fields, checked. */
 function readFields(formData: FormData) {
-  const title = String(formData.get("title") ?? "").trim();
+  // Line breaks are kept, but without the stray spaces around them.
+  const title = String(formData.get("title") ?? "")
+    .replace(/[^\S\n]*\r?\n\s*/g, "\n")
+    .trim();
   const content = String(formData.get("content") ?? "").trim();
   const songTitle = String(formData.get("song_title") ?? "").trim();
   const songUrl = String(formData.get("song_url") ?? "").trim();
 
-  if (!title || !content) {
-    return { error: "Title and content are required." };
+  if (!title) {
+    return { error: "A title is required." };
   }
   if (songUrl && !/^https?:\/\//.test(songUrl)) {
     return { error: "The song link must start with http:// or https://." };

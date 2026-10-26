@@ -14,6 +14,11 @@ export type Post = {
   created_at: number;
 };
 
+/** A title's line breaks as spaces, for places that show it on one line. */
+export function flatTitle(title: Post["title"]) {
+  return title.replace(/\s*\n\s*/g, " ");
+}
+
 export function formatDate(timestamp: Post["created_at"]) {
   return new Date(timestamp).toLocaleDateString("en-US", {
     month: "long",
