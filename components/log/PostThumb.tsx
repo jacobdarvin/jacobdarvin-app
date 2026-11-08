@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { formatDate, hasContent, toISODate, type Post } from "@/lib/log";
+import { formatDate, hasContent, titleStyle, toISODate, type Post } from "@/lib/log";
 
 /**
  * A post in the grid; its video previews silently on hover. Posts with no
@@ -44,7 +44,7 @@ export function PostThumb({ post }: { post: Post }) {
           )
         )}
       </div>
-      <h3 className="mt-4 font-serif text-2xl leading-tight whitespace-pre-line">{post.title}</h3>
+      <h3 style={titleStyle(post)} className="mt-4 font-serif text-2xl leading-tight whitespace-pre-line">{post.title}</h3>
       <time
         dateTime={toISODate(post.created_at)}
         className="mt-1 block text-sm text-muted-foreground"

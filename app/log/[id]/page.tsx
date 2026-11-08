@@ -4,7 +4,14 @@ import { IoMusicalNotes } from "react-icons/io5";
 import { CreditRoll } from "@/components/log/CreditRoll";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { excerpt, flatTitle, formatDate, toISODate } from "@/lib/log";
+import {
+  bodyStyle,
+  excerpt,
+  flatTitle,
+  formatDate,
+  titleStyle,
+  toISODate,
+} from "@/lib/log";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, getPosts } from "@/lib/posts";
 
@@ -72,7 +79,7 @@ export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
             }
           >
             <div className="mx-auto max-w-[65ch]">
-              <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line">
+              <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line" style={titleStyle(post)}>
                 {post.title}
               </h1>
               <p className="mt-4 text-white/70">
@@ -82,6 +89,7 @@ export default async function LogPostPage({ params }: PageProps<"/log/[id]">) {
               </p>
               <div
                 className="prose md:prose-lg mt-10 max-w-none prose-invert prose-headings:font-serif prose-headings:font-normal"
+                style={bodyStyle(post)}
                 dangerouslySetInnerHTML={{ __html: html }}
               />
               {post.song_title && (

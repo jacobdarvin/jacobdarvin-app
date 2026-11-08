@@ -12,13 +12,17 @@ import { MediaDropzone } from "@/components/MediaDropzone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { Post } from "@/lib/log";
+import { TEXT_COLORS, isTextColor, type Post } from "@/lib/log";
+import { cn } from "@/lib/utils";
 
 /** Publishes a new post, or saves changes to `post` if one is given. */
 export function PostForm({ post }: { post?: Post }) {
   const [video, setVideo] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
   const [cover, setCover] = useState<File | null>(null);
+  const [color, setColor] = useState<string | null>(
+    isTextColor(post?.color) ? post.color : null,
+  );
   const [coverIsAuto, setCoverIsAuto] = useState(true);
   // The post's files that stay unless replaced or removed.
   const [saved, setSaved] = useState<Record<MediaField, string | null>>({
@@ -156,6 +160,31 @@ export function PostForm({ post }: { post?: Post }) {
         </div>
       </div>
 
+      <fieldset className="space-y-3">
+        <legend className="text-sm font-medium">Text color</legend>
+        <input type="hidden" name="color" value={color ?? ""} />
+        <div className="flex flex-wrap gap-3">
+          {[{ name: "Default", value: null }, ...TEXT_COLORS].map((c) => (
+            <button
+              key={c.name}
+              type="button"
+              aria-label={c.name}
+              aria-pressed={color === c.value}
+              title={c.name}
+              onClick={() => setColor(c.value)}
+              style={c.value ? { backgroundColor: c.value } : undefined}
+              className={cn(
+                "grid size-9 place-items-center rounded-full border border-border text-[10px] outline-offset-2 transition-transform hover:scale-110 focus-visible:outline-2",
+                !c.value && "bg-card text-muted-foreground",
+                color === c.value && "outline-2 outline-foreground",
+              )}
+            >
+              {!c.value && "Aa"}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
       <div className="space-y-2">
         <label htmlFor="title" className="text-sm font-medium">
           Title
@@ -168,6 +197,7 @@ export function PostForm({ post }: { post?: Post }) {
           defaultValue={post?.title}
           rows={1}
           required
+          style={color ? { color } : undefined}
           className="field-sizing-content min-h-0 resize-none rounded-none border-0 border-b px-0 py-2 font-serif text-4xl leading-tight focus-visible:border-foreground focus-visible:ring-0 md:text-5xl"
         />
       </div>
@@ -185,6 +215,7 @@ export function PostForm({ post }: { post?: Post }) {
           placeholder="Write something…"
           defaultValue={post?.content}
           rows={12}
+          style={color ? { color } : undefined}
           className="rounded-none bg-card text-base"
         />
         <p className="text-xs text-muted-foreground">

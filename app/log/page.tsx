@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { MoreEntries } from "@/components/log/MoreEntries";
 import { VideoFrame } from "@/components/log/VideoFrame";
-import { formatDate, hasContent, toISODate } from "@/lib/log";
+import { formatDate, hasContent, titleStyle, toISODate } from "@/lib/log";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default async function LogPage() {
               post={latest}
               href={hasContent(latest) ? `/log/${latest.id}` : undefined}
             >
-              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line">
+              <h1 className="font-serif text-[clamp(2.25rem,6vw,5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line" style={titleStyle(latest)}>
                 {latest.title}
               </h1>
               <p className="mt-4 text-white/70">

@@ -5,7 +5,7 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { isSignedInAsAuthor } from "@/lib/auth";
 import { bucket, db } from "@/lib/firebase-admin";
-import { hasContent } from "@/lib/log";
+import { hasContent, isTextColor } from "@/lib/log";
 import { POSTS_TAG } from "@/lib/posts";
 
 export type FormState = { error?: string };
@@ -144,6 +144,7 @@ function readFields(formData: FormData) {
   const content = String(formData.get("content") ?? "").trim();
   const songTitle = String(formData.get("song_title") ?? "").trim();
   const songUrl = String(formData.get("song_url") ?? "").trim();
+  const color = formData.get("color");
 
   if (!title) {
     return { error: "A title is required." };
@@ -160,6 +161,7 @@ function readFields(formData: FormData) {
     content,
     song_title: songTitle || null,
     song_url: songUrl || null,
+    color: isTextColor(color) ? color : null,
   };
 }
 
