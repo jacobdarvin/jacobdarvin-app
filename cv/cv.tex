@@ -1,0 +1,132 @@
+%-------------------------------------------------------------------------------
+% Jacob T. Darvin — CV (2026)
+% Compile with pdfLaTeX (or Overleaf). Font: EB Garamond.
+%-------------------------------------------------------------------------------
+\documentclass[letterpaper,11pt]{article}
+
+% --- Font -----------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[lining]{ebgaramond}
+
+% --- Layout ---------------------------------------------------------------------
+\usepackage[letterpaper,top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\raggedright
+
+% --- Colours & links --------------------------------------------------------------
+\definecolor{linkblue}{HTML}{1155CC}
+\newcommand{\cvlink}[2]{\href{#1}{\textcolor{linkblue}{\uline{\textbf{#2}}}}}
+
+% --- Section headings: bold caps with a full-width rule -------------------------
+\titleformat{\section}
+  {\normalsize\bfseries\MakeUppercase}{}{0pt}{}[\vspace{-6pt}\rule{\linewidth}{0.5pt}]
+\titlespacing*{\section}{0pt}{10pt}{8pt}
+
+% --- Bullets: small filled squares, sub-bullets "o" ---------------------------------
+\setlist[itemize,1]{label={\tiny$\blacksquare$}, leftmargin=1.6em, labelsep=1em,
+  itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt}
+\setlist[itemize,2]{label={o}, leftmargin=2em, labelsep=1em,
+  itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+% --- Entry helpers ------------------------------------------------------------------
+% \entry{Organisation}{Dates}{Role}{Location}
+\newcommand{\entry}[4]{%
+  \textbf{#1}\hfill\textbf{#2}\\
+  \textit{#3}\hfill\textit{#4}\par
+}
+\newcommand{\entrygap}{\vspace{10pt}}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% --- Header ---------------------------------------------------------------------
+{\fontsize{24}{28}\selectfont\bfseries Jacob T. Darvin}\\[3pt]
+jacobisdarvin@gmail.com \;|\; Metro Manila \;|\;
+\cvlink{https://jacobdarvin.com}{www.jacobdarvin.com}
+
+% --- Experience -----------------------------------------------------------------
+\section{Experience}
+
+\entry{Harmoney}{Jun. 2025 -- Present}{Full Stack Engineer}{Auckland, New Zealand}
+\begin{itemize}
+  \item Developed end-to-end solutions for the S2 banking system and Thought Machine integrations using Next.js and NestJS.
+  \item Automated complex loan servicing workflows by architecting and implementing business processes via Camunda (BPMN).
+  \item Engineered scalable transaction capturing systems to support high-volume loan operations across the New Zealand and Australian markets.
+\end{itemize}
+\entrygap
+
+\entry{Mindvalley}{Oct. 2024 -- Apr. 2025}{Full Stack Engineer}{Kuala Lumpur, Malaysia}
+\begin{itemize}
+  \item Developed and maintained critical identity and payment systems with Elixir, Phoenix framework, and Vue 3.
+  \item Collaborated with stakeholders and cross-functional teams to lead development on a new checkout user experience.
+  \item Applied comprehensive testing strategies to ensure high code quality, error reporting and overall reduction of production issues.
+\end{itemize}
+\entrygap
+
+\entry{GCash}{Mar. 2023 -- Oct. 2024}{Lead Software Engineer}{Taguig, Metro Manila}
+\begin{itemize}
+  \item Developed front-end and ad solutions on the main app as well as internal tools through Vue 3 and Spring Boot.
+  \item Utilized Docker and Kubernetes to monitor deployment of microservices and ensure smooth deployment and integration of such services to the main app.
+  \item Collaborated with interdisciplinary teams for aligning on business objectives related to branding, ad performance and issue troubleshooting.
+\end{itemize}
+\entrygap
+
+\entry{Accenture}{Nov. 2022 -- Jan. 2023}{Software Engineer Intern}{Mandaluyong, Metro Manila}
+\entrygap
+
+\entry{Creating Info}{Jul. 2022 -- Sep. 2022}{Software Engineer Intern}{Pasig, Metro Manila}
+
+% --- Education ------------------------------------------------------------------
+\section{Education}
+
+\entry{Asian Institute of Management}{2024 -- 2025}{Post Graduate Diploma in General Management}{Makati, Metro Manila}
+\entry{De La Salle University}{2018 -- 2022}{BS Computer Science with specialization in Software Technology}{Manila, Metro Manila}
+
+% --- Licenses & Certifications ----------------------------------------------------
+\section{Licenses \& Certifications}
+
+\textbf{AWS Certified Solutions Architect -- Associate}
+\begin{itemize}
+  \item Credential ID: \cvlink{https://www.credly.com/badges/af580dd5-d095-4ca6-b142-fa5e9a889263/linked_in_profile}{3Z9M6TR2W1E11NC5}
+\end{itemize}
+\entrygap
+
+\textbf{Postgraduate Diploma Program in General Management}
+\begin{itemize}
+  \item Credential ID: \cvlink{https://certificates.emeritus.org/30173107-6b47-49c2-bdd9-ed4a6d2dcc0d}{\small 0x022af6a357505c274be2b826dfbdc84747c6e6aa89f2a9a1aab71cefc291242b}
+\end{itemize}
+
+% --- Skills ---------------------------------------------------------------------
+\section{Skills}
+
+\begin{itemize}
+  \item \textbf{Skills:} Next.js, Vue.js, AWS, Typescript, Node, Supabase, RESTful API, UI/UX Design, Java, Elixir, Tailwind, Front-end Development, Full-stack Development, Git, Spring Boot
+\end{itemize}
+
+% --- Projects -------------------------------------------------------------------
+
+% To remake this once I have flashm8 setup
+
+% \section{Projects}
+
+% \begin{itemize}
+%   \item Staykay -- \cvlink{https://www.staykay.ph/}{www.staykay.ph}
+%   \begin{itemize}
+%     \item Architected and developed a full-stack vacation rental platform using Next.js 15, React 19, TypeScript, and Tailwind CSS, implementing modern web development practices and optimizing for performance.
+%     \item Built a comprehensive property management system for hosts with features including listing creation, calendar management and booking management.
+%   \end{itemize}
+%   \vspace{8pt}
+%   \item Kardly -- \cvlink{https://www.kardly.me/}{www.kardly.me}, RIESGO (Thesis) -- \cvlink{https://riesgo.vercel.app/}{www.riesgo.app}
+% \end{itemize}
+
+\end{document}
