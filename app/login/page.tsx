@@ -12,7 +12,7 @@ export default function LoginPage() {
       className={`log flex min-h-svh items-center justify-center bg-background px-4 py-16 text-foreground`}
     >
       <div className="w-full max-w-sm">
-        <h1 className="font-serif text-5xl">Hey me!</h1>
+        <h1 className="font-serif text-5xl">Hey Jacob</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           If you&apos;re not me, congratulations on finding the secret login
           page!
